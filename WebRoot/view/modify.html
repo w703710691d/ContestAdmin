@@ -1,0 +1,223 @@
+<html>
+	<head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <base href="${ctx_path}/"/>
+		<title>
+			报名系统
+		</title>
+		<style>
+			body{
+				background-color: #f2f2f2;
+			}
+			table,tr,td{
+			    border-color: #d1d1d1;
+		    }
+		    tr{
+			    background-color: #f2f2f2;
+			    height: 32px;
+		    }
+		    tr:hover{
+			    background-color: #eee;
+		    }
+            td{
+                color: #666;    
+                padding:0 8px;
+            }
+		</style>
+		<script>
+			function clk()
+			{
+				window.location.href="${ctx_path}/contest/show/${team.cid}";
+			}
+		</script>
+	</head>
+	<body>
+		<#if username??>
+        <div style="text-align:right" >
+          	${username}
+         	<a href="logout">注销</a>
+        </div>
+	    <#else>
+	        <div style="text-align:right" >
+	         	<a href="https://www.oj.swust.edu.cn/signup">注册</a>
+	            <a href="login">登陆</a>
+	        </div>
+	    </#if>
+		<h1 align="center">
+			队伍信息修改
+		</h1>
+		<p style="color: red; text-align: center;">
+    		${messege!}
+    	</p>
+		<form action="admin/updateteam/${team.tid}" method="post">
+			<table cellpadding="0" cellspacing="0" border="0" align="center">
+				<tr>
+					<td>
+						<h2>队员一</h2>
+						<p>
+							姓名：
+							<input  name="name1" type="text" value="${team.name1!}"/>
+						</p>
+						<p>
+							学号：
+							<input  name="stuId1" type="text" value="${team.stuId1!}"/>
+						</p>
+						<p>
+							学院：
+							<select name="college1">
+								<option value="信息工程学院" <#if team.college1?? && team.college1 == "信息工程学院"> selected="selected"</#if> >信息工程学院  </option>
+								<option value="计算机科学与技术学院" <#if team.college1?? && team.college1 == "计算机科学与技术学院"> selected="selected"</#if> >计算机科学与技术学院</option>
+								<option value="国防科技学院" <#if team.college1?? && team.college1 == "国防科技学院"> selected="selected"</#if>  >国防科技学院</option>
+								<option value="理学院" <#if team.college1?? && team.college1 == "理学院"> selected="selected"</#if> >理学院</option>
+								<option value="经济管理学院" <#if team.college1?? && team.college1 == "经济管理学院"> selected="selected"</#if> >经济管理学院</option>
+								<option value="制造科学与工程学院" <#if team.college1?? && team.college1 == "制造科学与工程学院"> selected="selected"</#if> >制造科学与工程学院</option>
+								<option value="土木工程与建筑学院" <#if team.college1?? && team.college1 == "土木工程与建筑学院"> selected="selected"</#if> >土木工程与建筑学院</option>
+								<option value="环境与资源学院" <#if team.college1?? && team.college1 == "环境与资源学院"> selected="selected"</#if> >环境与资源学院</option>
+								<option value="材料科学与工程学院" <#if team.college1?? && team.college1 == "材料科学与工程学院"> selected="selected"</#if> >材料科学与工程学院</option>
+								<option value="生命科学与工程学院" <#if team.college1?? && team.college1 == "生命科学与工程学院"> selected="selected"</#if> >生命科学与工程学院</option>
+								<option value="文学与艺术学院" <#if team.college1?? && team.college1 == "文学与艺术学院"> selected="selected"</#if> >文学与艺术学院</option>
+								<option value="法学院" <#if team.college1?? && team.college1 == "法学院"> selected="selected"</#if> >法学院</option>
+								<option value="马克思主义学院" <#if team.college1?? && team.college1 == "马克思主义学院"> selected="selected"</#if> >马克思主义学院</option>
+								<option value="体育学科部" <#if team.college1?? && team.college1 == "体育学科部"> selected="selected"</#if> >体育学科部</option>
+								<option value="外国语学院" <#if team.college1?? && team.college1 == "外国语学院"> selected="selected"</#if> >外国语学院</option>
+								<option value="成人教育学院" <#if team.college1?? && team.college1 == "成人教育学院"> selected="selected"</#if> >成人教育学院</option>
+								<option value="网络教育学院" <#if team.college1?? && team.college1 == "网络教育学院"> selected="selected"</#if> >网络教育学院</option>
+								<option value="应用技术学院" <#if team.college1?? && team.college1 == "应用技术学院"> selected="selected"</#if> >应用技术学院</option>
+								<option value="拉美研究院" <#if team.college1?? && team.college1 == "拉美研究院"> selected="selected"</#if> >拉美研究院</option>
+								<option value="其它学院" <#if team.college1?? && team.college1 == "其它学院"> selected="selected"</#if> >其它学院</option>
+								<option value="其它学校" <#if team.college1?? && team.college1 == "其它学校"> selected="selected"</#if> >其它学校</option>
+							</select>
+						</p>
+						<p>
+							班级：
+							<input  name="class1" type="text" value="${team.class1!}"/>
+						</p>
+						<p>
+							性别：
+							<input type="radio" name="gender1" value="male" <#if !(team.gender1??) || (team.gender1?? && team.gender1 == "male")>checked="checked" </#if> >男
+							<input type="radio" name="gender1" value="female" <#if team.gender1?? && team.gender1 == "female">checked="checked" </#if> >女
+						</p>
+						<p>
+							联系方式：
+							<input  name="contact1" type="text" value="${team.contact1!}"/>
+						</p>
+					</td>
+					<td>
+						<h2>队员二</h2>
+						<p>
+							姓名：
+							<input  name="name2" type="text" value="${team.name2!}"/>
+						</p>
+						<p>
+							学号：
+							<input  name="stuId2" type="text" value="${team.stuId2!}"/>
+						</p>
+						<p>
+							学院：
+							<select name="college2">
+								<option value="信息工程学院" <#if team.college2?? && team.college2 == "信息工程学院"> selected="selected"</#if> >信息工程学院  </option>
+								<option value="计算机科学与技术学院" <#if team.college2?? && team.college2 == "计算机科学与技术学院"> selected="selected"</#if> >计算机科学与技术学院</option>
+								<option value="国防科技学院" <#if team.college2?? && team.college2 == "国防科技学院"> selected="selected"</#if>  >国防科技学院</option>
+								<option value="理学院" <#if team.college2?? && team.college2 == "理学院"> selected="selected"</#if> >理学院</option>
+								<option value="经济管理学院" <#if team.college2?? && team.college2 == "经济管理学院"> selected="selected"</#if> >经济管理学院</option>
+								<option value="制造科学与工程学院" <#if team.college2?? && team.college2 == "制造科学与工程学院"> selected="selected"</#if> >制造科学与工程学院</option>
+								<option value="土木工程与建筑学院" <#if team.college2?? && team.college2 == "土木工程与建筑学院"> selected="selected"</#if> >土木工程与建筑学院</option>
+								<option value="环境与资源学院" <#if team.college2?? && team.college2 == "环境与资源学院"> selected="selected"</#if> >环境与资源学院</option>
+								<option value="材料科学与工程学院" <#if team.college2?? && team.college2 == "材料科学与工程学院"> selected="selected"</#if> >材料科学与工程学院</option>
+								<option value="生命科学与工程学院" <#if team.college2?? && team.college2 == "生命科学与工程学院"> selected="selected"</#if> >生命科学与工程学院</option>
+								<option value="文学与艺术学院" <#if team.college2?? && team.college2 == "文学与艺术学院"> selected="selected"</#if> >文学与艺术学院</option>
+								<option value="法学院" <#if team.college2?? && team.college2 == "法学院"> selected="selected"</#if> >法学院</option>
+								<option value="马克思主义学院" <#if team.college2?? && team.college2 == "马克思主义学院"> selected="selected"</#if> >马克思主义学院</option>
+								<option value="体育学科部" <#if team.college2?? && team.college2 == "体育学科部"> selected="selected"</#if> >体育学科部</option>
+								<option value="外国语学院" <#if team.college2?? && team.college2 == "外国语学院"> selected="selected"</#if> >外国语学院</option>
+								<option value="成人教育学院" <#if team.college2?? && team.college2 == "成人教育学院"> selected="selected"</#if> >成人教育学院</option>
+								<option value="网络教育学院" <#if team.college2?? && team.college2 == "网络教育学院"> selected="selected"</#if> >网络教育学院</option>
+								<option value="应用技术学院" <#if team.college2?? && team.college2 == "应用技术学院"> selected="selected"</#if> >应用技术学院</option>
+								<option value="拉美研究院" <#if team.college2?? && team.college2 == "拉美研究院"> selected="selected"</#if> >拉美研究院</option>
+								<option value="其它学院" <#if team.college2?? && team.college2 == "其它学院"> selected="selected"</#if> >其它学院</option>
+								<option value="其它学校" <#if team.college2?? && team.college2 == "其它学校"> selected="selected"</#if> >其它学校</option>
+							</select>
+						</p>
+						<p>
+							班级：
+							<input  name="class2" type="text" value="${team.class2!}"/>
+						</p>
+						<p>
+							性别：
+							<input type="radio" name="gender2" value="male" <#if !(team.gender2??) || (team.gender2?? && team.gender1 == "male")>checked="checked" </#if>>男
+							<input type="radio" name="gender2" value="female" <#if team.gender2?? && team.gender2 == "female">checked="checked" </#if> >女
+						</p>
+						<p>
+							联系方式：
+							<input  name="contact2" type="text" value="${team.contact2!}"/>
+						</p>
+					</td>
+					<td>
+						<h2>队员三</h2>
+						<p>
+							姓名：
+							<input  name="name3" type="text" value="${team.name3!}"/>
+						</p>
+						<p>
+							学号：
+							<input  name="stuId3" type="text" value="${team.stuId3!}"/>
+						</p>
+						<p>
+							学院：
+							<select name="college3">
+								<option value="信息工程学院" <#if team.college3?? && team.college3 == "信息工程学院"> selected="selected"</#if> >信息工程学院  </option>
+								<option value="计算机科学与技术学院" <#if team.college3?? && team.college3 == "计算机科学与技术学院"> selected="selected"</#if> >计算机科学与技术学院</option>
+								<option value="国防科技学院" <#if team.college3?? && team.college3 == "国防科技学院"> selected="selected"</#if>  >国防科技学院</option>
+								<option value="理学院" <#if team.college3?? && team.college3 == "理学院"> selected="selected"</#if> >理学院</option>
+								<option value="经济管理学院" <#if team.college3?? && team.college3 == "经济管理学院"> selected="selected"</#if> >经济管理学院</option>
+								<option value="制造科学与工程学院" <#if team.college3?? && team.college3 == "制造科学与工程学院"> selected="selected"</#if> >制造科学与工程学院</option>
+								<option value="土木工程与建筑学院" <#if team.college3?? && team.college3 == "土木工程与建筑学院"> selected="selected"</#if> >土木工程与建筑学院</option>
+								<option value="环境与资源学院" <#if team.college3?? && team.college3 == "环境与资源学院"> selected="selected"</#if> >环境与资源学院</option>
+								<option value="材料科学与工程学院" <#if team.college3?? && team.college3 == "材料科学与工程学院"> selected="selected"</#if> >材料科学与工程学院</option>
+								<option value="生命科学与工程学院" <#if team.college3?? && team.college3 == "生命科学与工程学院"> selected="selected"</#if> >生命科学与工程学院</option>
+								<option value="文学与艺术学院" <#if team.college3?? && team.college3 == "文学与艺术学院"> selected="selected"</#if> >文学与艺术学院</option>
+								<option value="法学院" <#if team.college3?? && team.college3 == "法学院"> selected="selected"</#if> >法学院</option>
+								<option value="马克思主义学院" <#if team.college3?? && team.college3 == "马克思主义学院"> selected="selected"</#if> >马克思主义学院</option>
+								<option value="体育学科部" <#if team.college3?? && team.college3 == "体育学科部"> selected="selected"</#if> >体育学科部</option>
+								<option value="外国语学院" <#if team.college3?? && team.college3 == "外国语学院"> selected="selected"</#if> >外国语学院</option>
+								<option value="成人教育学院" <#if team.college3?? && team.college3 == "成人教育学院"> selected="selected"</#if> >成人教育学院</option>
+								<option value="网络教育学院" <#if team.college3?? && team.college3 == "网络教育学院"> selected="selected"</#if> >网络教育学院</option>
+								<option value="应用技术学院" <#if team.college3?? && team.college3 == "应用技术学院"> selected="selected"</#if> >应用技术学院</option>
+								<option value="拉美研究院" <#if team.college3?? && team.college3 == "拉美研究院"> selected="selected"</#if> >拉美研究院</option>
+								<option value="其它学院" <#if team.college3?? && team.college3 == "其它学院"> selected="selected"</#if> >其它学院</option>
+								<option value="其它学校" <#if team.college3?? && team.college3 == "其它学校"> selected="selected"</#if> >其它学校</option>
+							</select>
+						</p>
+						<p>
+							班级：
+							<input  name="class3" type="text" value="${team.class3!}"/>
+						</p>
+						<p>
+							性别：
+							<input type="radio" name="gender3" value="male" <#if !(team.gender3??) || (team.gender3?? && team.gender3 == "male")>checked="checked" </#if> >男
+							<input type="radio" name="gender3" value="female" <#if team.gender3?? && team.gender3 == "female">checked="checked" </#if> >女
+						</p>
+						<p>
+							联系方式：
+							<input  name="contact3" type="text" value="${team.contact3!}"/>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center" style="height: 50px">
+						是否正式参加：
+						<input type="radio" name="isSpecialTeam" value=0 <#if team.isSpecialTeam == false > checked="checked" </#if> >是
+						<input type="radio" name="isSpecialTeam" value=1 value=0 <#if team.isSpecialTeam == true >checked="checked" </#if>  >否
+						
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" align="center" style="height: 50px">
+						<input type="submit" value="提交">
+						<button type="button" onclick="clk()"> 返回</button>
+					</td>
+				</tr>
+			</table>	
+		</form>
+	</body>
+</html>

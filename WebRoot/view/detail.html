@@ -1,0 +1,199 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <base href="${ctx_path}/"/>
+	<title>报名系统</title>
+	<style>
+		<style>
+		    table,tr,td{
+			    border-color: #d1d1d1;
+		    }
+		    tr{
+			    background-color: #f2f2f2;
+			    height: 32px;
+		    }
+		    tr:hover{
+			    background-color: #eee;
+		    }
+            td{
+                color: #666;    
+                padding:0 8px;
+            }
+            a{
+				color: #49b1e2;
+			}
+			a:visited{
+				color: #49b1e2;
+			}
+			*{
+				text-align:center
+			}
+	   </style>
+	</style>
+</head>
+<body>
+	<p style="color: red;">
+    	${messege!}
+    </p>
+	<h1>队伍信息</h1>
+	<table align="center" cellpadding="0" cellspacing="0" border="1" align="center">
+		<tr>
+			<td>
+			</td>
+			<td>
+				队员一
+			</td>
+			<td>
+				队员二
+			</td>
+			<td>
+				队员三
+			</td>
+		</tr>
+		<tr>
+			<td>
+				姓名
+			</td>
+			<td>
+				${team.name1!}
+			</td>
+			<td>
+				${team.name2!}
+			</td>
+			<td>
+				${team.name3!}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				学号
+			</td>
+			<td>
+				${team.stuId1!}
+			</td>
+			<td>
+				${team.stuId2!}
+			</td>
+			<td>
+				${team.stuId3!}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				学院
+			</td>
+			<td>
+				${team.college1!}
+			</td>
+			<td>
+				${team.college2!}
+			</td>
+			<td>
+				${team.college3!}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				班级
+			</td>
+			<td>
+				${team.class1!}
+			</td>
+			<td>
+				${team.class2!}
+			</td>
+			<td>
+				${team.class3!}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				性别
+			</td>
+			<td>
+				<#if team.gender1??>
+            		<#if team.gender1 == "male">
+            			男
+            		<#else>
+            			女
+            		</#if>
+            	<#else>	
+            	</#if>
+			</td>
+			<td>
+				<#if team.gender2??>
+            		<#if team.gender2 == "male">
+            			男
+            		<#else>
+            			女
+            		</#if>
+            	<#else>	
+            	</#if>
+			</td>
+			<td>
+				<#if team.gender3??>
+            		<#if team.gender3 == "male">
+            			男
+            		<#else>
+            			女
+            		</#if>
+            	<#else>	
+            	</#if>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				联系方式
+			</td>
+			<td>
+				${team.contact1!}
+			</td>
+			<td>
+				${team.contact2!}
+			</td>
+			<td>
+				${team.contact3!}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				UID
+			</td>
+			<td colspan="3">
+				${team.uid!}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				申请时间
+			</td>
+			<td colspan="3">
+				${(team.ctime*1000)?number_to_datetime}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				修改时间
+			</td>
+			<td colspan="3">
+				${(team.mtime*1000)?number_to_datetime}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				管理历史
+			</td>
+			<td colspan="3">
+					<p style="text-align: left;">
+					${team.history!}
+					</p>
+			</td>
+		</tr>
+	</table>
+	<h1>评论</h1>
+	<textarea rows="4" cols="65" name="comment" id="comment" style="text-align: left;">${team.comment!}</textarea>
+    </br>
+    <a href = "contest/show/${team.cid}">返回</a>
+    <#if canmodify>
+    	<a href = "contest/modify/${team.tid}">修改报名信息</a>
+    </#if>
+</body>

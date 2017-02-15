@@ -1,0 +1,105 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <base href="${ctx_path}/"/>
+        <title>报名系统</title>
+        <style>
+		    table,tr,td{
+			    border-color: #d1d1d1;
+		    }
+		    tr{
+			    background-color: #f2f2f2;
+			    height: 32px;
+		    }
+		    tr:hover{
+			    background-color: #eee;
+		    }
+            td{
+                color: #666;    
+                padding:0 8px;
+            }
+            a{
+				color: #49b1e2;
+			}
+			a:visited{
+				color: #49b1e2;
+			}
+			*{
+				text-align:center
+			}
+	   </style>
+    </head>
+        <body>
+        	<#if username??>
+        		<div style="text-align:right" >
+                	${username}
+                	<a href="logout">注销</a>
+             	</div>
+            <#else>
+            	<div style="text-align:right" >
+            		<a href="https://www.oj.swust.edu.cn/signup">注册</a>
+            		<a href="login">登陆</a>
+            	</div>
+        	</#if>
+            <div>
+                <h1>信息工程学院ACM报名系统</h1>
+                <p style="color: red;">
+    				${messege!}
+    			</p>
+                <table cellpadding="0" cellspacing="0" border="1" align="center">
+                    <tr>
+                        <td>
+                      		比赛
+                        </td>
+                        <td>
+                      		开始时间
+                        </td>
+                        <td>
+							结束时间
+                        </td>
+                        <td>
+							状态
+                        </td>
+                        <td>
+							操作
+                        </td>
+                    </tr>
+                    <#list NodeList as contestlist>
+                    <tr>
+                        <td>
+                            ${contestlist.title}
+                        </td>
+                        <td>
+                            ${(contestlist.startTime*1000)?number_to_datetime}
+                        </td>
+                        <td>
+                            ${(contestlist.startTime*1000)?number_to_datetime}
+                        </td>
+                        <#if .now?long < contestlist.startTime*1000 >
+                        	<td>
+                        		<font color="green">等待</font>
+                        	</td>
+                        	<td>
+                            	<a href = "contest/show/${contestlist.cid}">进入报名列表</a>
+                           	</td>
+                        <#elseif .now?long < contestlist.endTime*1000>
+                        	<td>
+                        		<font color="red">正在进行</font>
+                        	</td>
+                        	<td>
+                           		<a href = "https://www.oj.swust.edu.cn/contest/show/${contestlist.cid}">进入比赛</a>
+                        	</td>
+                        <#else>
+                        	<td>
+                        		<font color=#666>结束</font>
+                        	</td>
+                        	<td>
+                           		<a href = "https://www.oj.swust.edu.cn/contest/rank/${contestlist.cid}">查看比赛结果</a>
+                        	</td>
+                        </#if> 
+                    </tr>
+                    </#list>
+                </table>
+            </div>
+        </body>
+</html>

@@ -1,0 +1,228 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+        <base href="${ctx_path}/"/>
+        <style>
+		    table,tr,td{
+			    border-color: #d1d1d1;
+		    }
+		    tr{
+			    background-color: #f2f2f2;
+			    height: 32px;
+		    }
+		    tr:hover{
+			    background-color: #eee;
+		    }
+            td{
+                color: #666;    
+                padding:0 8px;
+            }
+            a{
+				color: #49b1e2;
+			}
+			a:visited{
+				color: #49b1e2;
+			}
+			*{
+				text-align:center;
+			}
+	    </style>
+    </head>
+	<#if username??>
+        <div style="text-align:right" >
+          	${username}
+         	<a href="logout">注销</a>
+        </div>
+    <#else>
+        <div style="text-align:right" >
+         	<a href="https://www.oj.swust.edu.cn/signup">注册</a>
+            <a href="login">登陆</a>
+        </div>
+    </#if>
+    <h1>
+        ${title}
+    </h1>
+    <p style="color: red;">
+    	${messege!}
+    </p>
+    <#if reg>
+    	<a href="contest/register/${cid}"><h2>比赛注册入口</h2></a>
+    </#if>
+    <table cellpadding="0" cellspacing="0" border="1" align="center">
+        <tr> 
+            <td>
+            </td>
+            <td colspan = "4">
+ 				队员一
+            </td>
+            <td colspan = "4">
+           		队员二
+            </td>
+            <td colspan = "4">
+           		队员三
+            </td>
+            <td colspan="2">
+            </td>
+        </tr>
+        <tr>
+            <td>
+            	序号
+            </td>
+            <td>
+           		姓名
+            </td>
+            <td>
+          		学院
+            </td>
+            <td>
+           		班级
+            </td>
+            <td>
+          		性别
+            </td>
+             <td>
+            	姓名
+            </td>
+            <td>
+           		学院
+            </td>
+            <td>
+          		班级
+            </td>
+            <td>
+				性别
+            </td>
+            <td>
+				姓名
+            </td>
+            <td>
+				学院
+            </td>
+            <td>
+				班级
+            </td>
+            <td>
+				性别
+            </td>
+             <td>
+				状态
+            </td>
+            <#if admin?? && admin>
+            	<td>
+            		管理
+            	</td>
+            <#else>
+            	<td>
+            		查看信息
+            	</td>
+            </#if>
+        </tr>
+       	<#assign id = 0 girl = 0, rookie = 0, accepted = 0/>
+        <#list TeamList as team>
+        <#if team.isGirlTeam>
+			<tr style="background: pink;">
+		<#elseif team.isRookieTeam>
+			<tr style="background: greenyellow;">
+		<#else>
+			<tr>
+		</#if>
+        <#if team.isGirlTeam && team.status == 1> 
+			<#assign girl = girl + 1/>
+		</#if>
+		<#if team.isRookieTeam && team.status == 1> 
+			<#assign rookie = rookie + 1/>
+		</#if>
+            <td>
+             	<#if team.isSpecialTeam>
+             		*
+             	<#else>
+                	<#assign id = id + 1 />
+                	${id}
+             	</#if>
+            </td>
+            <td>
+                ${team.name1!}
+            </td>
+            <td>
+                ${team.college1!}
+            </td>
+            <td>
+                ${team.class1!}
+            </td>
+            <td>
+            	<#if team.gender1??>
+            		<#if team.gender1 == "male">
+            			男
+            		<#else>
+            			女
+            		</#if>
+            	<#else>	
+            	</#if>
+            </td>
+            <td>
+                ${team.name2!}
+            </td>
+            <td>
+                ${team.college2!}
+            </td>
+            <td>
+                ${team.class2!}
+            </td>
+            <td>
+                <#if team.gender2??>
+            		<#if team.gender2 == "male">
+            			男
+            		<#else>
+            			女
+            		</#if>
+            	<#else>
+            	</#if>
+            </td>
+            <td>
+                 ${team.name3!}
+            </td>
+            <td>
+                ${team.college3!}
+            </td>
+            <td>
+                ${team.class3!}
+            </td>
+            <td>
+                <#if team.gender3??>
+            		<#if team.gender3 == "male">
+            			男
+            		<#else>
+            			女
+            		</#if>
+            	<#else>
+            	</#if>
+            </td>
+            <td>
+            	<#if team.status == 0>
+            		<font color="green" style="font-weight: 900">Pending</font>
+            	<#elseif team.status == 1>
+            		<font color="red" style="font-weight: 900">Accepted</font>
+            		<#assign accepted = accepted + 1/>
+            	<#else>
+            		<font color="black" style="font-weight: 900">Rejected</font>
+            	</#if>
+            </td>
+            <#if admin?? && admin>
+            	<td>
+            		<a href="admin/${team.tid}">管理</a>
+            	</td>
+            <#else>
+            	<td>
+            		<a href="contest/detail/${team.tid}">详细信息</a>
+            	</td>
+            </#if>
+        </tr>
+        </#list>
+        <p style="font-weight: 900"> 
+    		总计：${accepted}支正式队</br>
+    		<font color="red" >女生队：${girl}</font></br>
+    		<font color="green">新人队：${rookie}</font>
+    	</p>
+    </table>
+    
+</html>
