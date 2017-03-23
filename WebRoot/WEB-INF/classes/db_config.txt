@@ -1,5 +1,4 @@
 url=jdbc\:mysql\://swustacm.cn/oj?characterEncoding\=UTF-8&zeroDateTimeBehavior\=convertToNull
-
+  		  
 user=w703710691d
 password=15286739
-

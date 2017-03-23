@@ -19,6 +19,7 @@ public class contest extends Controller
 			redirect("/");
 			return ;
 		}
+	    
 		String title = Db.queryFirst("select title from contest where cid = ?",cid);
 		if(title == null)
 		{

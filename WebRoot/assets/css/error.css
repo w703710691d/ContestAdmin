@@ -1,0 +1,20 @@
+body {
+	background: #fff;
+	font-family: Verdana, Tahoma;
+}
+
+#msg_box {
+	color: #CE4614;
+	font-size: 0.9em;
+	text-align: center;
+}
+
+#msg_box .title {
+	font-size: 1.4em;
+	font-weight: bold;
+	margin: 0 0 10px 0;
+}
+
+#msg_box .nav {
+	margin-top: 20px;
+}
