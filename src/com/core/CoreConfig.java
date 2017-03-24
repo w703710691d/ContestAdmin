@@ -1,19 +1,29 @@
-package com;
+package com.core;
 
+import com.admin;
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.c3p0.C3p0Plugin;
-public class ContestConfig extends JFinalConfig 
+import com.main.MainController;
+
+import api.ApiController;
+import contest.ContestController;
+
+
+public class CoreConfig extends JFinalConfig 
 {
-	public void configConstant(Constants me) {
+	public void configConstant(Constants me) 
+	{
 		me.setDevMode(true);
 	}
-	public void configRoute(Routes me) {
-		me.add("/", show.class);
-		me.add("/contest", contest.class);
+	public void configRoute(Routes me) 
+	{
+		me.add("/", MainController.class);
+		me.add("/contest", ContestController.class);
 		me.add("/admin", admin.class);
+		me.add("/api", ApiController.class);
 	}
 	public void configPlugin(Plugins me)
 	{
@@ -23,12 +33,17 @@ public class ContestConfig extends JFinalConfig
     	ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
     	me.add(arp);
 	}
-	public void configInterceptor(Interceptors me) {}
+	public void configInterceptor(Interceptors me)
+	{
+		me.addGlobalActionInterceptor(new GlobalActionInterceptor());
+	}
 	@Override
-	public void configHandler(Handlers me) {
+	public void configHandler(Handlers me)
+	{
 		me.add(new ContextPathHandler("ctx_path"));
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		JFinal.start("WebRoot", 80, "/", 5);
 	}
 }

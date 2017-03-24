@@ -1,11 +1,15 @@
-package com;
+package contest;
 
 import java.util.*;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
+
+import api.ApiService;
+import user.UserService;
+
 import com.jfinal.core.Controller;
 
-public class contest extends Controller
+public class ContestController extends Controller
 {
 	boolean isadmin()
 	{
@@ -16,47 +20,36 @@ public class contest extends Controller
 		Integer cid = getParaToInt(0);
 		if(cid == null)
 		{
+			ApiService.msg = "参数非法!";
 			redirect("/");
 			return ;
 		}
-	    
-		String title = Db.queryFirst("select title from contest where cid = ?",cid);
-		if(title == null)
+		if(!ContestService.GetContest(cid))
 		{
 			redirect("/");
 			return ;
 		}
-		setSessionAttr("lasturl", "/contest/show/" + cid);
-		setAttr("username",getSessionAttr("username"));
-		setAttr("admin",getSessionAttr("admin"));
-		setAttr("title",title);
-		setAttr("cid",cid);
-		List<Record> list = Db.find("Select * from team where cid = ?", cid);
-		int cnt = 0;
-		for(Record i : list)	
+		if(ContestService.GetType() != 2)
 		{
-			i.set("id", ++cnt);
+			ApiService.msg = "无法查看该比赛注册信息!";
+			redirect("/");
+			return ;
 		}
+		ApiService.lastUrl = "/contest/show/" + cid;
+		setAttr("username", UserService.GetUserName());
+		setAttr("admin", UserService.isadmin());
+		setAttr("title", ContestService.GetTitle());
+		setAttr("cid", ContestService.GetCid());
+		
+		List<Record> list = ContestService.GetTeam();
+		
 		setAttr("TeamList",list);
-		setAttr("messege",getSessionAttr("messege"));
-		removeSessionAttr("messege");
-		Integer uid = getSessionAttr("uid");
-		if(uid == null)
-		{
-			setAttr("reg",true);
-		}
-		else
-		{
-			Integer tid = Db.queryInt("select tid from team where cid = ? and uid = ? and status != 2", cid, uid);
-			if(tid == null)
-			{
-				setAttr("reg",true);
-			}
-			else 
-			{
-				setAttr("reg",false);
-			}
-		}
+		setAttr("msg", ApiService.msg);
+		ApiService.msg = null;
+		
+		Boolean canReg = ContestService.CanReg();
+		setAttr("reg", canReg);
+		
 		render("/view/contest.html");
 	}
 	public void register()

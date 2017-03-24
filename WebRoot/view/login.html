@@ -1,36 +1,127 @@
 <html>
     <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-    <base href="${ctx_path}/"/>
-    <title>报名系统</title>
-    <style>
-        p{
-            text-align:center;
-        }
-    </style>
-    <script>
-    function clk()
-    { 
-        window.location.href="${ctx_path + lasturl}";
-    }
-    </script>   
-</head>
-    <h1 align = "center" >登陆</h1>
-    <p style = "color:red">${loginmessege}</p>
-    <form action="login" method="post">
-        <p>
-            PowerOJ账号:
-            <input name="username" type="text">
-        </p>
-        <p>
-            PowerOJ密码:
-            <input name="password" type="password">
-        </p>
-        <p>
-            <input value = "登陆" type="submit">
-            <button type = "button"  onclick = "clk()">
-                返回
-            </button>
-        </p>
-    </form>
+	    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	    <base href="${ctx_path}/"/>
+	    <title>报名系统</title>
+	    
+	    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="assets/font-awesome-4.6.3/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+		<!--[if lt IE 8]>
+		<link href="assets/font-awesome-4.6.3/css/font-awesome-ie7.min.css" type="text/css" rel="stylesheet">
+		<![endif]-->
+		<link href="assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="assets/css/oj.css" type="text/css" rel="stylesheet">
+		<link href="assets/css/oj-icons.css" type="text/css" rel="stylesheet">
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+	    
+	    <style>
+	    </style>
+	    <script>
+			$(".alert").alert()
+	    </script>   
+	</head>
+	<body background="assets/images/background.jpg">
+		<body background="assets/images/background.jpg">
+        	<div class="navbar navbar-fixed-top" id="oj-navbar">
+			  <div class="navbar-inner">
+			    <div class="container">
+			      <button class="btn btn-navbar" type="button" data-target=".nav-collapse" data-toggle="collapse">
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class="brand" href="https://www.oj.swust.edu.cn">PowerOJ</a>
+			      <div class="nav-collapse collapse">
+			        <ul class="nav">
+			          <li>
+			            <a href="/"><i class="icon-list"></i>比赛列表</a>
+			          </li>
+			        </ul>
+			        <ul class="nav pull-right">
+					    <li>
+					        <a href="https://www.oj.swust.edu.cn/signup"><i class="icon-star"></i>注册</a>
+					    </li>  
+			        </ul>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<div class="marquee">
+			  <marquee class="hidden-phone" style="margin-top: 46px;" direction="left" behavior="scroll" scrollamount="2">
+			  <ul class="marquee"></ul>
+			  </marquee>
+			</div>
+	    <h1 style="text-align: center;" >登陆</h1>
+	    
+	    <#if msg??>
+            <div align="center">
+	            <div class="alert alert-warning" align="center" style="width: 20%;">
+						<a href="#" class="close" data-dismiss="alert">
+						    &times;
+						</a>
+					<strong>${msg}</strong>
+				</div>
+			</div>
+        </#if>
+        
+        
+        <div class="main container">
+			<div class="row-fluid">
+			    <div class="span12">
+					<div class="row" id="login-box">
+					  <div class="span5 offset3">
+					    <form class="form-horizontal" action="api/login" method="post">
+					      <div class="control-group&#10;">
+					        <label class="control-label" for="inputAccount">PowerOJ用户名</label>
+					        <div class="controls">
+					          <div class="input-prepend">
+					            <span class="add-on"><i class="icon-user"></i></span>
+					            <input name="username" id="inputAccount" autofocus="" required="" type="text" placeholder="User name" value="" style="height: 30px;">
+					          </div>
+					          <p class="text-error"></p>
+					        </div>
+					      </div>
+					      <div class="control-group">
+					        <label class="control-label" for="inputPassword">PowerOJ密码</label>
+					        <div class="controls">
+					          <div class="input-prepend" >
+					            <span class="add-on"><i class="icon-lock"></i> </span>
+					            <input name="password" id="inputPassword" required="" type="password" placeholder="Password" style="height: 30px;">
+					          </div>
+					        </div>
+					      </div>
+					      <div class="control-group">
+					        <div class="controls">
+					          <span class="help-block"><a class = "btn btn-danger" href="https://www.oj.swust.edu.cn/user/forget">忘记密码？</a> </span>
+					        </div>
+					      </div>
+					     <div class="control-group">
+					     	<div class="controls">
+					     		<span class="help-block">
+						     	<table class = "table">
+							      	<tr >
+							     		<td style="text-align: left;">
+								          	<input class="btn btn-success" type="submit" value="登陆">
+							     		</td>
+								        <td style="text-align: left;">
+								          	<a class="btn btn-info" href="${lasturl}" >返回</a>
+							     		</td>
+								    </tr>
+						     	</table>
+						     	</span>
+						     </div>
+					     </div>
+					     
+					    </form>
+					  </div>
+					</div>
+			    </div><!-- span -->
+			  </div><!-- row -->
+			</div>
+        
+        
+	    
+	 </body>
 </html>

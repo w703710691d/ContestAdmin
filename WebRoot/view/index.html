@@ -2,7 +2,7 @@
     <head>
     	
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-        <base href="${ctx_path}/"/>
+        <base href="${ctx_path}"/>
         <title>报名系统</title>
         
         
@@ -15,6 +15,10 @@
 		<link href="assets/css/oj.css" type="text/css" rel="stylesheet">
 		<link href="assets/css/oj-icons.css" type="text/css" rel="stylesheet">
 		<link href="assets/tablecloth/css/tablecloth.css" rel="stylesheet" type="text/css">
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+		
+		
         <style type="text/css">
 	        .table th , .table td 
 	        { 
@@ -24,6 +28,9 @@
 				font-size:larger;
 			}
 	   </style>
+	   <script>
+	   		$(".alert").alert()
+	   </script>
     </head>
         <body background="assets/images/background.jpg">
         	<div class="navbar navbar-fixed-top" id="oj-navbar">
@@ -45,17 +52,17 @@
 			        	
 			        	<#if username??>
 			        		<li>
-					            <a id="login" data-target="#loginModal" data-toggle="modal"><i class="oj-icon oj-icon-user-suit"></i>${username}</a>
+					            <a><i class="oj-icon oj-icon-user-suit"></i>${username}</a>
 					        </li>
 					        <li>
-					            <a id="signup" href="logout" data-target="#signupModal" data-toggle="modal"><i class="icon-off"></i>注销</a>
+					            <a href="api/logout"><i class="icon-off"></i>注销</a>
 					        </li>
 			            <#else>
 			            	<li>
-					            <a id="login" href="login" data-target="#loginModal" data-toggle="modal"><i class="icon-user"></i>登陆</a>
+					            <a href="api/login"><i class="icon-user"></i>登陆</a>
 					        </li>
 					        <li>
-					            <a id="signup" href="signup?ajax=1" data-target="#signupModal" data-toggle="modal"><i class="icon-star"></i>注册</a>
+					            <a href="https://www.oj.swust.edu.cn/signup"><i class="icon-star"></i>注册</a>
 					        </li>
 			        	</#if>
 			        	
@@ -74,9 +81,16 @@
         	<div class = "row-fluid">
             <div class="span12">
                	<h1 style="text-align: center;">信息工程学院ACM报名系统</h1>
-                <p style="color: red; height: 25px;">
-    				${messege!}
-    			</p>
+               	<#if msg??>
+               		<div align="center">
+	               		<div class="alert alert-warning" align="center" style="width: 20%;">
+						    <a href="#" class="close" data-dismiss="alert">
+						        &times;
+						    </a>
+						    <strong>${msg}</strong>
+						</div>
+					</div>
+               	</#if>
                 <table class="table table-stats table-responsive table-hover table-striped">
                 	<thead class="">
 	                    <tr>
