@@ -3,7 +3,6 @@ package user;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 
-import api.ApiService;
 import jodd.util.BCrypt;
 
 public class UserService
@@ -14,42 +13,28 @@ public class UserService
 		if(user == null) return 0;
 		return user.getInt("uid");
 	}
-	public static String GetUserName()
+	public static String GetUserName(int uid)
 	{
-		if(user == null) return null;
-		return user.getStr("name");
+		return Db.queryStr("select name from user where uid = ?", uid);
 	}
-	public static void login(String username, String password) 
+	public static Integer login(String username, String password) 
 	{
 		user = Db.findFirst("select * from user where name = ?", username);
 		if(user == null)
 		{
-			ApiService.msg = "该用户名不存在";
-			return;
+			return 0;
 		}
 		if(!BCrypt.checkpw(password, user.getStr("password")))
 		{
-			ApiService.msg = "密码错误";
-			user = null;
-			return;
+			return -1;
 		}
-		Boolean admin = Db.findFirst("select rid from user_role where uid = ?", GetUid()).getInt("rid").equals(1);
-		user.set("admin", admin);
-		ApiService.msg =  "登陆成功";
+		return user.getInt("uid");
 	}
-	public static Boolean isadmin()
+	public static Boolean isadmin(int uid)
 	{
-		if(user == null) return false;
-		return user.getBoolean("admin");
+		Integer role = Db.queryInt("select rid from user_role where uid = ?", uid);
+		if(role == null || role != 1) return false;
+		return true;
 	}
-	public static void logout()
-	{
-		if(user == null)
-		{
-			ApiService.msg = "未登录，无法注销!";
-			return;
-		}
-		user = null;
-		ApiService.msg = "注销成功";
-	}
+
 }

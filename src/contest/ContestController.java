@@ -1,11 +1,8 @@
 package contest;
 
-import java.util.*;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 
-import api.ApiService;
-import user.UserService;
 
 import com.jfinal.core.Controller;
 
@@ -20,72 +17,78 @@ public class ContestController extends Controller
 		Integer cid = getParaToInt(0);
 		if(cid == null)
 		{
-			ApiService.msg = "参数非法!";
-			redirect("/");
+			setSessionAttr("msg", "参数非法");
+			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		if(!ContestService.GetContest(cid))
+		Record contest = ContestService.GetContest(cid);
+		if(contest == null)
 		{
-			redirect("/");
+			setSessionAttr("msg", "该比赛不存在");
+			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		if(ContestService.GetType() != 2)
+		if(contest.getInt("type") != 2)
 		{
-			ApiService.msg =  "无法查看该比赛注册信息!";
-			redirect("/");
+			setSessionAttr("msg", "无法查看该比赛注册信息");
+			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		ApiService.lastUrl = "/contest/show/" + cid;
-		setAttr("username", UserService.GetUserName());
-		setAttr("admin", UserService.isadmin());
-		setAttr("title", ContestService.GetTitle());
-		setAttr("cid", ContestService.GetCid());
+		int uid = getSessionAttr("uid");
 		
-		List<Record> list = ContestService.GetTeam();
+		setAttr("username", getSessionAttr("username"));
+		setAttr("admin", getSessionAttr("admin"));
+		setAttr("msg", getSessionAttr("msg"));
+		setAttr("uid", uid);
+		setAttr("title", contest.getStr("title"));
+		setAttr("cid", contest.getInt("cid"));
+		setAttr("TeamList", ContestService.GetTeam(cid));
+		setAttr("reg", ContestService.CanReg(uid, cid));
 		
-		setAttr("TeamList",list);
-		setAttr("msg", ApiService.msg);
-		ApiService.msg = null;
+		setSessionAttr("msg", null);
+		setSessionAttr("lasturl", "/contest/show/" + cid);
 		
-		Boolean canReg = ContestService.CanReg();
-		setAttr("reg", canReg);
-		setAttr("uid", UserService.GetUid());
 		render("/view/contest.html");
 	}
 	public void register()
 	{
-		if(UserService.GetUid() == 0)
+		Integer uid = getSessionAttr("uid");
+		if(uid == 0)
 		{
-			ApiService.msg = "请先登录";
+			setSessionAttr("msg", "请先登录");
 			redirect("/api/login");
 			return ;
 		}
 		Integer cid = getParaToInt(0);
 		if(cid == null)
 		{
-			ApiService.msg = "参数错误";
-			redirect("/");
+			setSessionAttr("msg", "参数错误");
+			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		ContestService.GetContest(cid);
-		if(ContestService.GetCid() == 0)
+		Record contest = ContestService.GetContest(cid);
+		if(contest == null)
 		{
-			ApiService.msg = "注册比赛不存在";
-			redirect("/");
+			setSessionAttr("msg", "注册比赛不存在");
+			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		if(!ContestService.CanReg())
+		if(!ContestService.CanReg(uid, cid))
 		{
-			ApiService.msg = "已经注册该比赛";
-			redirect("/contest/show" + cid);
+			setSessionAttr("msg", "已经注册该比赛");
+			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		ApiService.lastUrl = "/contest/register/" +  getParaToInt(0);
-		setAttr("title", ContestService.GetTitle());
-		setAttr("username", UserService.GetUserName());
+		
+		
+		setAttr("title", contest.getStr("title"));
+		setAttr("username", getSessionAttr("username"));
 		setAttr("cid", cid);
-		setAttr("msg", ApiService.msg);
-		ApiService.msg = null;
+		setAttr("msg", getSessionAttr("msg"));
+		
+		setSessionAttr("lasturl", "/contest/register/" +  getParaToInt(0));
+		setSessionAttr("msg", null);
+		
 		render("/view/register.html");
 	}
 	public void detail()
