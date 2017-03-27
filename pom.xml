@@ -6,6 +6,7 @@
   <packaging>war</packaging>
   <name>PowerOJ ContestAdmin</name>
   <build>
+    <finalName>ContestAdmin</finalName>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
