@@ -1,7 +1,5 @@
 package contest;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.*;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
@@ -51,43 +49,43 @@ public class ContestController extends Controller
 		
 		Boolean canReg = ContestService.CanReg();
 		setAttr("reg", canReg);
-		
+		setAttr("uid", UserService.GetUid());
 		render("/view/contest.html");
 	}
 	public void register()
 	{
-		if(getSessionAttr("uid") == null)
+		if(UserService.GetUid() == 0)
 		{
-			redirect("/login");
+			ApiService.msg = "请先登录";
+			redirect("/api/login");
 			return ;
 		}
 		Integer cid = getParaToInt(0);
 		if(cid == null)
 		{
-			setSessionAttr("messege", "参数错误");
+			ApiService.msg = "参数错误";
 			redirect("/");
 			return ;
 		}
-		String title = Db.queryFirst("select title from contest where cid = ?",cid);
-		if(title == null)
+		ContestService.GetContest(cid);
+		if(ContestService.GetCid() == 0)
 		{
-			setSessionAttr("messege", "注册比赛不存在");
+			ApiService.msg = "注册比赛不存在";
 			redirect("/");
 			return ;
 		}
-		Integer uid = getSessionAttr("uid");
-		Integer tid = Db.queryInt("select tid from team where cid = ? and uid = ?", cid, uid);
-		if(tid != null)
+		if(!ContestService.CanReg())
 		{
-			setSessionAttr("messege", "已经注册该比赛");
+			ApiService.msg = "已经注册该比赛";
 			redirect("/contest/show" + cid);
+			return ;
 		}
-		setSessionAttr("lasturl", "/contest/register/" +  getParaToInt(0));
-		setAttr("title",title);
-		setAttr("username",getSessionAttr("username"));
+		ApiService.lastUrl = "/contest/register/" +  getParaToInt(0);
+		setAttr("title", ContestService.GetTitle());
+		setAttr("username", UserService.GetUserName());
 		setAttr("cid", cid);
-		setAttr("messege",getSessionAttr("messege"));
-		removeSessionAttr("messege");
+		setAttr("msg", ApiService.msg);
+		ApiService.msg = null;
 		render("/view/register.html");
 	}
 	public void detail()

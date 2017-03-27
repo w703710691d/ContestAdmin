@@ -55,7 +55,7 @@ public class ContestService
 		Integer type = GetType();
 		if(type != 2) return false;
 		if(uid == 0) return true;
-		Integer tid = Db.queryInt("select tid from team where cid = ? and uid = ? and status != 2", cid, uid);
+		Integer tid = Db.queryInt("select tid from team where cid = ? and uid = ?", cid, uid);
 		if(tid == null) return true;
 		return false;
 	}

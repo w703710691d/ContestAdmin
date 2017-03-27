@@ -120,7 +120,9 @@
          	<col style="width:6%"> <!--班级 -->
          	<col style="width:2.5%"> <!--性别 -->
          	<col style="width:7%"> <!--状态 -->
-         	<col style="width:5%"> <!--其他 -->
+         	<#if uid != 0 && !reg>
+         		<col style="width:5%"> <!--其他 -->
+         	</#if>
         </colgroup>
     	<thead>
         	<tr> 
@@ -135,8 +137,12 @@
 	            <th colspan = "4">
 	           		队员三
 	            </th>
-	            <th colspan="2">
+	            <th colspan="1">
 	            </th>
+	            <#if (uid != 0 && !reg) || admin>
+	            	<th colspan="1">
+	           	 	</th>
+	           	</#if>
         	</tr>
         	<tr>
 	            <th>
@@ -181,15 +187,19 @@
 	             <th>
 					状态
 	            </th>
-	            <#if admin?? && admin>
-	            	<th>
-	            		管理
-	            	</th>
-	            <#else>
-	            	<th>
-	            		查看信息
-	            	</th>
-	            </#if>
+	            <#if uid != 0>
+		            <#if admin?? && admin>
+		            	<th>
+		            		管理
+		            	</th>
+		            <#else>
+		            	<#if !reg >
+		            		<th>
+		            			操作
+		            		</th>
+		            	</#if>
+		            </#if>
+		        </#if>
         	</tr>
         </thead>
        	<#assign id = 0 girl = 0, rookie = 0, accepted = 0/>
@@ -283,15 +293,22 @@
 	            		<p class="btn btn-danger" style="width: 75%;">Rejected</p>
 	            	</#if>
 	            </td>
-	            <#if admin?? && admin>
-	            	<td>
-	            		<a href="admin/${team.tid}">管理</a>
-	            	</td>
-	            <#else>
-	            	<td>
-	            		<a href="contest/detail/${team.tid}">详细信息</a>
-	            	</td>
-	            </#if>
+	            <#if uid != 0>
+		            <#if admin?? && admin>
+		            	<td>
+		            		<a href="admin/${team.tid}" class="btn btn-info">管理</a>
+		            	</td>
+		            <#else>
+		            	<#if !reg>
+		            		<td>
+		            			<#if uid == team.uid>
+		            				<a href="contest/detail/${team.tid}" class="btn btn-warning">修改</a>
+		            			</#if>
+		            		</td>
+		            	</#if>
+		            	
+		            </#if>
+		         </#if>
 	        </tr>
 	        </#list>
         </tbody>
