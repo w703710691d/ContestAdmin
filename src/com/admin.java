@@ -25,21 +25,21 @@ public class admin extends Controller
 		removeSessionAttr("messege");
 		if(!isadmin())
 		{
-			setSessionAttr("messege","Ã»ÓĞÈ¨ÏŞ");
+			setSessionAttr("messege","æ²¡æœ‰æƒé™");
 			redirect("/");
 			return;
 		}
 		Integer tid = getParaToInt(0);
 		if(tid == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege","å‚æ•°é”™è¯¯");
 			redirect("/");
 			return;
 		}
 		Record team = Db.findFirst("select * from team where tid = ?", tid);
 		if(team == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege","å‚æ•°é”™è¯¯");
 			redirect("/");
 			return;
 		}
@@ -54,7 +54,7 @@ public class admin extends Controller
 		removeSessionAttr("messege");
 		if(!isadmin())
 		{
-			setSessionAttr("messege","Ã»ÓĞÈ¨ÏŞ");
+			setSessionAttr("messege","æ²¡æœ‰æƒé™");
 			redirect("/");
 			return ;
 		}
@@ -71,7 +71,7 @@ public class admin extends Controller
 		int now = (int)(System.currentTimeMillis()/1000);
 		rd.set("mtime", now).set("history", history).set("comment", comment).set("status", status);
 		Db.update("team", "tid", rd);
-		setSessionAttr("messege","ĞŞ¸Ä³É¹¦");
+		setSessionAttr("messege","ä¿®æ”¹æˆåŠŸ");
 		redirect( "/contest/show/" + cid);
 	}
 	boolean isrookie(String stuid)
@@ -111,7 +111,7 @@ public class admin extends Controller
 		Integer tid = Db.queryInt("select tid from team where cid = ? and uid = ?", cid, uid);
 		if(tid != null)
 		{
-			setSessionAttr("messege","ÒÑ¾­×¢²á£¬ÎŞ·¨ÔÙ´Î×¢²á");
+			setSessionAttr("messege", "å·²ç»æ³¨å†Œï¼Œæ— æ³•å†æ¬¡æ³¨å†Œ");
 			redirect("/contest/show/" + cid);
 			return ;
 		}
@@ -141,7 +141,7 @@ public class admin extends Controller
 		if(rd.getStr("name1").replaceAll(" ","").isEmpty() || rd.getStr("stuId1").replaceAll(" ","").isEmpty() || rd.getStr("college1").replaceAll(" ","").isEmpty()
 				||rd.getStr("class1").replaceAll(" ","").isEmpty() || rd.getStr("contact1").replaceAll(" ","").isEmpty())
 		{
-			setSessionAttr("messege","ÌîĞ´ĞÅÏ¢´íÎó");
+			setSessionAttr("messege", "å¡«å†™ä¿¡æ¯é”™è¯¯");
 			redirect("/contest/register/" + cid);
 			return ;
 		}
@@ -194,7 +194,7 @@ public class admin extends Controller
 		rd.set("isRookieTeam", isrookie);
 		rd.set("isGirlTeam", isgirl);
 		Db.save("team", rd);
-		setSessionAttr("messege","×¢²á³É¹¦");
+		setSessionAttr("messege", "æ³¨å†ŒæˆåŠŸ");
 		redirect("/contest/show/" + cid);
 	}
 	public void updateteam()
@@ -203,20 +203,20 @@ public class admin extends Controller
 		Integer uid = getSessionAttr("uid");
 		if(tid == null ||  uid == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege","å‚æ•°é”™è¯¯");
 			redirect("/");
 			return;
 		}
 		Record rd = Db.findById("team", "tid", tid);
 		if(rd == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege","å‚æ•°é”™è¯¯");
 			redirect("/");
 			return ;
 		}
 		if(!isadmin() && uid != rd.getInt("uid"))
 		{
-			setSessionAttr("messege","Ã»ÓĞÈ¨ÏŞ!");
+			setSessionAttr("messege","æ²¡æœ‰æƒé™!");
 			redirect("/");
 		}
 		Integer cid = rd.getInt("cid");
@@ -244,7 +244,7 @@ public class admin extends Controller
 		if(rd.getStr("name1").replaceAll(" ","").isEmpty() || rd.getStr("stuId1").replaceAll(" ","").isEmpty() || rd.getStr("college1").replaceAll(" ","").isEmpty()
 				||rd.getStr("class1").replaceAll(" ","").isEmpty() || rd.getStr("contact1").replaceAll(" ","").isEmpty())
 		{
-			setSessionAttr("messege","ÌîĞ´ĞÅÏ¢´íÎó");
+			setSessionAttr("messege","å¡«å†™ä¿¡æ¯é”™è¯¯");
 			redirect("/contest/register/" + cid);
 			return ;
 		}
@@ -252,7 +252,7 @@ public class admin extends Controller
 		{
 			if(rd.get("gender1") == null)
 			{
-				setSessionAttr("messege","ÌîĞ´ĞÅÏ¢´íÎó");
+				setSessionAttr("messege","å¡«å†™ä¿¡æ¯é”™è¯¯");
 				redirect("/contest/register/" + cid);
 			}
 			if(!isrookie(rd.getStr("stuId1")))
@@ -273,7 +273,7 @@ public class admin extends Controller
 		{
 			if(rd.get("gender2") == null)
 			{
-				setSessionAttr("messege","ÌîĞ´ĞÅÏ¢´íÎó");
+				setSessionAttr("messege","å¡«å†™ä¿¡æ¯é”™è¯¯");
 				redirect("/contest/register/" + cid);
 			}
 			if(!isrookie(rd.getStr("stuId2")))
@@ -293,7 +293,7 @@ public class admin extends Controller
 		{
 			if(rd.get("gender3") == null)
 			{
-				setSessionAttr("messege","ÌîĞ´ĞÅÏ¢´íÎó");
+				setSessionAttr("messege","å¡«å†™ä¿¡æ¯é”™è¯¯");
 				redirect("/contest/register/" + cid);
 			}
 			if(!isrookie(rd.getStr("stuId3")))
@@ -319,7 +319,7 @@ public class admin extends Controller
 		rd.set("history", history);
 		rd.set("mtime",now);
 		Db.update("team", "tid", rd);
-		setSessionAttr("messege","ĞŞ¸Ä³É¹¦");
+		setSessionAttr("messege","ä¿®æ”¹æˆåŠŸ");
 		redirect("/contest/show/" + cid);
 	}
 }

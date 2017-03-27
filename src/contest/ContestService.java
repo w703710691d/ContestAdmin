@@ -24,12 +24,12 @@ public class ContestService
 		else return contest.getInt("cid");
 	}
 	
-	static public Boolean GetContest(Integer cid)
+	static public Boolean GetContest(Integer cid) 
 	{
 		contest = Db.findFirst("select * from contest where cid = ?", cid);
 		if(contest == null)
 		{
-			ApiService.msg = "该比赛不存在";
+			ApiService.msg = "璇ユ瘮璧涗笉瀛樺湪";
 			return false;
 		}
 		return true;
@@ -39,11 +39,11 @@ public class ContestService
 		if(contest == null) return 0;
 		else return contest.getInt("type");
 	}
-	static public List<Record> GetTeam()
+	static public List<Record> GetTeam() 
 	{
 		Integer cid = GetCid();
 		List<Record> list = Db.find("Select * from team where cid = ?", cid);
-		if(cid == 0) ApiService.msg = "该比赛不存在";
+		if(cid == 0) ApiService.msg = "璇ユ瘮璧涗笉瀛樺湪";
 		return list;
 	}
 	

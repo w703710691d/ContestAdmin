@@ -1,4 +1,7 @@
 package api;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import com.jfinal.core.Controller;
 import user.UserService;
 
@@ -9,7 +12,7 @@ public class ApiController extends Controller
 		setAttr("lasturl", ApiService.lastUrl);
 		if(UserService.GetUid() != 0)
 		{
-			setAttr("msg","ÒÑ¾­µÇÂ½");
+			setAttr("msg", "å·²ç»ç™»é™†");
 			redirect(ApiService.lastUrl);
 		}
 		else

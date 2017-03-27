@@ -1,5 +1,7 @@
 package contest;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.*;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
@@ -20,7 +22,7 @@ public class ContestController extends Controller
 		Integer cid = getParaToInt(0);
 		if(cid == null)
 		{
-			ApiService.msg = "²ÎÊı·Ç·¨!";
+			ApiService.msg = "å‚æ•°éæ³•!";
 			redirect("/");
 			return ;
 		}
@@ -31,7 +33,7 @@ public class ContestController extends Controller
 		}
 		if(ContestService.GetType() != 2)
 		{
-			ApiService.msg = "ÎŞ·¨²é¿´¸Ã±ÈÈü×¢²áĞÅÏ¢!";
+			ApiService.msg =  "æ— æ³•æŸ¥çœ‹è¯¥æ¯”èµ›æ³¨å†Œä¿¡æ¯!";
 			redirect("/");
 			return ;
 		}
@@ -62,14 +64,14 @@ public class ContestController extends Controller
 		Integer cid = getParaToInt(0);
 		if(cid == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege", "å‚æ•°é”™è¯¯");
 			redirect("/");
 			return ;
 		}
 		String title = Db.queryFirst("select title from contest where cid = ?",cid);
 		if(title == null)
 		{
-			setSessionAttr("messege","×¢²á±ÈÈü²»´æÔÚ");
+			setSessionAttr("messege", "æ³¨å†Œæ¯”èµ›ä¸å­˜åœ¨");
 			redirect("/");
 			return ;
 		}
@@ -77,7 +79,7 @@ public class ContestController extends Controller
 		Integer tid = Db.queryInt("select tid from team where cid = ? and uid = ?", cid, uid);
 		if(tid != null)
 		{
-			setSessionAttr("messege","ÒÑ¾­×¢²á¸Ã±ÈÈü");
+			setSessionAttr("messege", "å·²ç»æ³¨å†Œè¯¥æ¯”èµ›");
 			redirect("/contest/show" + cid);
 		}
 		setSessionAttr("lasturl", "/contest/register/" +  getParaToInt(0));
@@ -95,14 +97,14 @@ public class ContestController extends Controller
 		Integer tid = getParaToInt(0);
 		if(tid == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege",  "å‚æ•°é”™è¯¯");
 			redirect("/");
 			return;
 		}
 		Record team = Db.findFirst("select * from team where tid = ?", tid);
 		if(team == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege", "å‚æ•°é”™è¯¯");
 			redirect("/");
 			return;
 		}
@@ -117,21 +119,21 @@ public class ContestController extends Controller
 		Integer tid = getParaToInt(0);
 		if(tid == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege","å‚æ•°é”™è¯¯");
 			redirect("/");
 			return;
 		}
 		Record team = Db.findFirst("select * from team where tid = ?", tid);
 		if(team == null)
 		{
-			setSessionAttr("messege","²ÎÊı´íÎó");
+			setSessionAttr("messege", "å‚æ•°é”™è¯¯");
 			redirect("/");
 			return;
 		}
 		boolean can = isadmin() || (getSessionAttr("uid")!=null && team.getInt("uid").equals(getSessionAttr("uid")));
 		if(!can)
 		{
-			setSessionAttr("messege","Ã»ÓĞÈ¨ÏŞ");
+			setSessionAttr("messege","æ²¡æœ‰æƒé™");
 			redirect("/");
 			return;
 		}

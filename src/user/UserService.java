@@ -19,23 +19,23 @@ public class UserService
 		if(user == null) return null;
 		return user.getStr("name");
 	}
-	public static void login(String username, String password)
+	public static void login(String username, String password) 
 	{
 		user = Db.findFirst("select * from user where name = ?", username);
 		if(user == null)
 		{
-			ApiService.msg =  "Ã»ÓĞ´ËÓÃ»§!";
+			ApiService.msg = "è¯¥ç”¨æˆ·åä¸å­˜åœ¨";
 			return;
 		}
 		if(!BCrypt.checkpw(password, user.getStr("password")))
 		{
-			ApiService.msg =  "ÃÜÂë´íÎó!";
+			ApiService.msg = "å¯†ç é”™è¯¯";
 			user = null;
 			return;
 		}
 		Boolean admin = Db.findFirst("select rid from user_role where uid = ?", GetUid()).getInt("rid").equals(1);
 		user.set("admin", admin);
-		ApiService.msg = "µÇÂ½³É¹¦";
+		ApiService.msg =  "ç™»é™†æˆåŠŸ";
 	}
 	public static Boolean isadmin()
 	{
@@ -46,10 +46,10 @@ public class UserService
 	{
 		if(user == null)
 		{
-			ApiService.msg = "Î´µÇÂ¼£¬ÎŞ·¨×¢Ïú!";
+			ApiService.msg = "æœªç™»å½•ï¼Œæ— æ³•æ³¨é”€!";
 			return;
 		}
 		user = null;
-		ApiService.msg = "×¢Ïú³É¹¦!";
+		ApiService.msg = "æ³¨é”€æˆåŠŸ";
 	}
 }

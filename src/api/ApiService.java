@@ -1,4 +1,7 @@
 package api;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import user.UserService;
 
 public class ApiService 
@@ -9,7 +12,7 @@ public class ApiService
 	{
 		if(username.replace(" ", "").equals("") || password.replace(" ", "").equals(""))
 		{
-			msg = "ÕËºÅÃÜÂë²»ÄÜÎª¿Õ";
+			msg = "è´¦å·å¯†ç ä¸èƒ½ä¸ºç©º";
 			return false;
 		}
 		UserService.login(username, password);
