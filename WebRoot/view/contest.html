@@ -21,18 +21,32 @@
 				table-layout: fixed;
 				width: auto;
 			}
-
 			.table th, .table td {
 				text-align: center;
 				vertical-align: middle!important;
 			}
-	
+			
+			.table td
+			{
+				padding-left: 0px;
+				padding-right: 0px;
+				padding-bottom: 10px;
+				padding-top: 10px;
+			}
+			td p
+			{
+				width: 65% !important;
+			}
 			.rookie td {
 				background-color: greenyellow !important;
 			}
 	
 			.girl td {
 				background-color: pink !important;
+			}
+			.main {
+				width: 80%;
+				min-width: 1024px;
 			}
       	</style>
     </head>
@@ -108,10 +122,6 @@
     <table class = "table table-stats table-responsive table-hover table-striped">
     	 <colgroup>
          	<col style="width:2.5%"> <!--序号 -->
-         	<col style="width:4%"> <!--姓名 -->
-         	<col style="width:7%"> <!--学院 -->
-         	<col style="width:6%"> <!--班级 -->
-         	<col style="width:2.5%"> <!--性别 -->
          	<col style="width:5%"> <!--姓名 -->
          	<col style="width:7%"> <!--学院 -->
          	<col style="width:6%"> <!--班级 -->
@@ -120,9 +130,13 @@
          	<col style="width:7%"> <!--学院 -->
          	<col style="width:6%"> <!--班级 -->
          	<col style="width:2.5%"> <!--性别 -->
-         	<col style="width:7%"> <!--状态 -->
+         	<col style="width:5%"> <!--姓名 -->
+         	<col style="width:7%"> <!--学院 -->
+         	<col style="width:6%"> <!--班级 -->
+         	<col style="width:2.5%"> <!--性别 -->
+         	<col style="width:4%"> <!--状态 -->
          	<#if uid != 0 && !reg>
-         		<col style="width:7%"> <!--其他 -->
+         		<col style="width:4%"> <!--其他 -->
          	</#if>
         </colgroup>
     	<thead>
@@ -286,12 +300,12 @@
 	            </td>
 	            <td>
 	            	<#if team.status == 0>
-	            		<p class="btn btn-info" style="width: 75%;">Pending</p>
+	            		<p class="btn btn-info">Pending</p>
 	            	<#elseif team.status == 1>
-	            		<p class="btn btn-success" style="width: 75%;">Accepted</p>
+	            		<p class="btn btn-success" >Accepted</p>
 	            		<#assign accepted = accepted + 1/>
 	            	<#else>
-	            		<p class="btn btn-danger" style="width: 75%;">Rejected</p>
+	            		<p class="btn btn-danger" >Rejected</p>
 	            	</#if>
 	            </td>
 	            <#if uid != 0>
@@ -303,7 +317,7 @@
 		            	<#if !reg>
 		            		<td>
 		            			<#if uid == team.uid>
-		            				<a href="contest/detail/${team.tid}" class="btn btn-warning">查看详情</a>
+		            				<a href="contest/detail/${team.tid}" class="btn btn-warning" style="width:60px">查看详情</a>
 		            			</#if>
 		            		</td>
 		            	</#if>
