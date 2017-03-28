@@ -141,7 +141,7 @@ public class admin extends Controller
 		if(rd.getStr("name1").replaceAll(" ","").isEmpty() || rd.getStr("stuId1").replaceAll(" ","").isEmpty() || rd.getStr("college1").replaceAll(" ","").isEmpty()
 				||rd.getStr("class1").replaceAll(" ","").isEmpty() || rd.getStr("contact1").replaceAll(" ","").isEmpty())
 		{
-			setSessionAttr("messege", "填写信息错误");
+			setSessionAttr("msg", "填写信息错误");
 			redirect("/contest/register/" + cid);
 			return ;
 		}

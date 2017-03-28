@@ -14,31 +14,27 @@
 		<link href="assets/tablecloth/css/tablecloth.css" rel="stylesheet" type="text/css">
 		<script src="assets/js/jquery.min.js"></script>
 		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-		<script>
-	   		$(".alert").alert()
-	   	</script>
+		<script>$(".alert").alert()</script>
         
         <style>
-
-			.table {
-			  table-layout:fixed;
+        	.table {
+				table-layout: fixed;
 			}
-			.table th , .table td 
-	        { 
+
+			.table th, .table td {
 				text-align: center;
 				vertical-align: middle!important;
 				font: "微软雅黑";
 			}
-			.rookie td
-			{
+	
+			.rookie td {
 				background-color: greenyellow !important;
 			}
-			.girl td
-			{
+	
+			.girl td {
 				background-color: pink !important;
 			}
-			
-	    </style>
+      	</style>
     </head>
     <body background="assets/images/background.jpg">
         	<div class="navbar navbar-fixed-top" id="oj-navbar">
@@ -102,7 +98,12 @@
 		</div>
      </#if>
     <#if reg>
-    	<a href="contest/register/${cid}" style="text-align: center;"><h2>比赛注册入口</h2></a>
+    	<div align="center">
+    		<a href="contest/register/${cid}" style="text-align: center;" class = "btn btn-info">
+    			<h3>比赛注册入口</h3>
+    		</a>
+    	</div>
+    	
     </#if>
     <table class = "table table-stats table-responsive table-hover table-striped">
     	 <colgroup>

@@ -2,224 +2,324 @@
 	<head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <base href="${ctx_path}/"/>
+        
+	    <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="assets/font-awesome-4.6.3/css/font-awesome.min.css" type="text/css" rel="stylesheet">
+		<!--[if lt IE 8]>
+		<link href="assets/font-awesome-4.6.3/css/font-awesome-ie7.min.css" type="text/css" rel="stylesheet">
+		<![endif]-->
+		<link href="assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+		<link href="assets/css/oj.css" type="text/css" rel="stylesheet">
+		<link href="assets/css/oj-icons.css" type="text/css" rel="stylesheet">
+
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 		<title>
-			报名系统
+			${title}注册
 		</title>
 		<style>
-			body{
-				background-color: #f2f2f2;
-			}
-			table,tr,td{
-			    border-color: #d1d1d1;
-		    }
-		    tr{
-			    background-color: #f2f2f2;
-			    height: 32px;
-		    }
-		    tr:hover{
-			    background-color: #eee;
-		    }
-            td{
-                color: #666;    
-                padding:0 8px;
-            }
 		</style>
-		<script>
-			function clk()
-			{
-				window.location.href="${ctx_path}/contest/show/${cid}";
-			}
-		</script>
 	</head>
-	<body>
-		<#if username??>
-        <div style="text-align:right" >
-          	${username}
-         	<a href="logout">注销</a>
-        </div>
-	    <#else>
-	        <div style="text-align:right" >
-	         	<a href="https://www.oj.swust.edu.cn/signup">注册</a>
-	            <a href="login">登陆</a>
-	        </div>
-	    </#if>
-		<h1 align="center">
-			${title}</br>
-			注册
-		</h1>
-		<p style="color: red; text-align: center;">
-    		${messege!}
-    	</p>
-		<form action="admin/register/${cid}" method="post">
-			<table cellpadding="0" cellspacing="0" border="0" align="center">
-				<tr>
-					<td>
-						<h2>队员一</h2>
-						<p>
-							姓名：
-							<input  name="name1" type="text"/>
-						</p>
-						<p>
-							学号：
-							<input  name="stuId1" type="text"/>
-						</p>
-						<p>
-							学院：
-							<select name="college1">
-								<option value="信息工程学院">信息工程学院</option>
-								<option value="计算机科学与技术学院">计算机科学与技术学院</option>
-								<option value="国防科技学院">国防科技学院</option>
-								<option value="理学院">理学院</option>
-								<option value="经济管理学院">经济管理学院</option>
-								<option value="制造科学与工程学院">制造科学与工程学院</option>
-								<option value="土木工程与建筑学院">土木工程与建筑学院</option>
-								<option value="环境与资源学院">环境与资源学院</option>
-								<option value="材料科学与工程学院">材料科学与工程学院</option>
-								<option value="生命科学与工程学院">生命科学与工程学院</option>
-								<option value="文学与艺术学院">文学与艺术学院</option>
-								<option value="法学院">法学院</option>
-								<option value="马克思主义学院">马克思主义学院</option>
-								<option value="体育学科部">体育学科部</option>
-								<option value="外国语学院">外国语学院</option>
-								<option value="成人教育学院">成人教育学院</option>
-								<option value="网络教育学院">网络教育学院</option>
-								<option value="应用技术学院">应用技术学院</option>
-								<option value="拉美研究院">拉美研究院</option>
-								<option value="其它学院">其它学院</option>
-								<option value="其它学校">其它学校</option>
-							</select>
-						</p>
-						<p>
-							班级：
-							<input  name="class1" type="text"/>
-						</p>
-						<p>
-							性别：
-							<input type="radio" name="gender1" value="male" checked="checked">男
-							<input type="radio" name="gender1" value="female">女
-						</p>
-						<p>
-							联系方式：
-							<input  name="contact1" type="text"/>
-						</p>
-					</td>
-					<td>
-						<h2>队员二</h2>
-						<p>
-							姓名：
-							<input  name="name2" type="text"/>
-						</p>
-						<p>
-							学号：
-							<input  name="stuId2" type="text"/>
-						</p>
-						<p>
-							学院：
-							<select name="college2">
-								<option value="信息工程学院">信息工程学院</option>
-								<option value="计算机科学与技术学院">计算机科学与技术学院</option>
-								<option value="国防科技学院">国防科技学院</option>
-								<option value="理学院">理学院</option>
-								<option value="经济管理学院">经济管理学院</option>
-								<option value="制造科学与工程学院">制造科学与工程学院</option>
-								<option value="土木工程与建筑学院">土木工程与建筑学院</option>
-								<option value="环境与资源学院">环境与资源学院</option>
-								<option value="材料科学与工程学院">材料科学与工程学院</option>
-								<option value="生命科学与工程学院">生命科学与工程学院</option>
-								<option value="文学与艺术学院">文学与艺术学院</option>
-								<option value="法学院">法学院</option>
-								<option value="马克思主义学院">马克思主义学院</option>
-								<option value="体育学科部">体育学科部</option>
-								<option value="外国语学院">外国语学院</option>
-								<option value="成人教育学院">成人教育学院</option>
-								<option value="网络教育学院">网络教育学院</option>
-								<option value="应用技术学院">应用技术学院</option>
-								<option value="拉美研究院">拉美研究院</option>
-								<option value="其它学院">其它学院</option>
-								<option value="其它学校">其它学校</option>
-							</select>
-						</p>
-						<p>
-							班级：
-							<input  name="class2" type="text"/>
-						</p>
-						<p>
-							性别：
-							<input type="radio" name="gender2" value="male" checked="checked">男
-							<input type="radio" name="gender2" value="female">女
-						</p>
-						<p>
-							联系方式：
-							<input  name="contact2" type="text"/>
-						</p>
-					</td>
-					<td>
-						<h2>队员三</h2>
-						<p>
-							姓名：
-							<input  name="name3" type="text"/>
-						</p>
-						<p>
-							学号：
-							<input  name="stuId3" type="text"/>
-						</p>
-						<p>
-							学院：
-							<select name="college3">
-								<option value="信息工程学院">信息工程学院</option>
-								<option value="计算机科学与技术学院">计算机科学与技术学院</option>
-								<option value="国防科技学院">国防科技学院</option>
-								<option value="理学院">理学院</option>
-								<option value="经济管理学院">经济管理学院</option>
-								<option value="制造科学与工程学院">制造科学与工程学院</option>
-								<option value="土木工程与建筑学院">土木工程与建筑学院</option>
-								<option value="环境与资源学院">环境与资源学院</option>
-								<option value="材料科学与工程学院">材料科学与工程学院</option>
-								<option value="生命科学与工程学院">生命科学与工程学院</option>
-								<option value="文学与艺术学院">文学与艺术学院</option>
-								<option value="法学院">法学院</option>
-								<option value="马克思主义学院">马克思主义学院</option>
-								<option value="体育学科部">体育学科部</option>
-								<option value="外国语学院">外国语学院</option>
-								<option value="成人教育学院">成人教育学院</option>
-								<option value="网络教育学院">网络教育学院</option>
-								<option value="应用技术学院">应用技术学院</option>
-								<option value="拉美研究院">拉美研究院</option>
-								<option value="其它学院">其它学院</option>
-								<option value="其它学校">其它学校</option>
-							</select>
-						</p>
-						<p>
-							班级：
-							<input  name="class3" type="text"/>
-						</p>
-						<p>
-							性别：
-							<input type="radio" name="gender3" value="male" checked="checked">男
-							<input type="radio" name="gender3" value="female">女
-						</p>
-						<p>
-							联系方式：
-							<input  name="contact3" type="text"/>
-						</p>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="3" align="center" style="height: 50px">
-						是否正式参加：
-						<input type="radio" name="isSpecialTeam" value=0 checked="checked">是
-						<input type="radio" name="isSpecialTeam" value=1>否
+	<body background="assets/images/background.jpg">
+		<div class="navbar navbar-fixed-top" id="oj-navbar">
+			<div class="navbar-inner">
+			    <div class="container">
+			      	<button class="btn btn-navbar" type="button" data-target=".nav-collapse" data-toggle="collapse">
+			        	<span class="icon-bar"></span>
+			        	<span class="icon-bar"></span>
+			        	<span class="icon-bar"></span>
+			      	</button>
+			      	<a class="brand" href="https://www.oj.swust.edu.cn">PowerOJ</a>
+			      		<div class="nav-collapse collapse">
+			        		<ul class="nav">
+			          			<li>
+			            			<a href=""><i class="icon-list"></i>比赛列表</a>
+			          			</li>
+			      		  	</ul>
+			        		<ul class="nav pull-right">
+			        			<#if username??>
+					        		<li>
+							            <a><i class="oj-icon oj-icon-user-suit"></i>${username}</a>
+							        </li>
+							        <li>
+							            <a href="api/logout"><i class="icon-off"></i>注销</a>
+							        </li>
+					            <#else>
+					            	<li>
+							            <a href="api/login"><i class="icon-user"></i>登陆</a>
+							        </li>
+							        <li>
+							            <a href="https://www.oj.swust.edu.cn/signup"><i class="icon-star"></i>注册</a>
+							        </li>
+					        	</#if>
+
+			        		</ul>
+			      		</div>
+			   	</div>
+			</div>
+		</div>
+		<div class="marquee">
+			  <marquee class="hidden-phone" style="margin-top: 46px;" direction="left" behavior="scroll" scrollamount="2">
+			  <ul class="marquee"></ul>
+			  </marquee>
+		</div>
+		<div class = "main container">
+    		<div class = "row-fluid">
+    			<div class="span12">
+					<h1 align="center">
+						${title}</br>
+						注册
+					</h1>
+					<#if msg??>
+				        <div align = "center">
+					        <div class="alert alert-warning" align="center" style="width: 20%;">
+								<a href="#" class="close" data-dismiss="alert">
+									&times;
+								</a>
+								<strong>${msg}</strong>
+							</div>
+						</div>
+				     </#if>
+					<form action="admin/register/${cid}" method="post" class="form-horizontal">
+						<table  class="table table-condensed">
+							<tr>
+								<td>
+									<h2 align="center">队员一</h2>
+									<div class="control-group&#10;">
+								        <label class="control-label" for="inputAccount">
+								        	姓名
+								        </label>
+								        <div class="controls">
+									        <div class="input-prepend">
+									        	<span class="add-on">
+									        		<i class="fa fa-user-md"></i>
+									        	</span>
+									            <input name="name1" id="inputAccount" autofocus=""  type="text" required="" placeholder="姓名" value="" style="height: 30px;">
+									        </div>
+									        <p class="text-error"></p>
+								        </div>
+								    </div>
+								    <div class="control-group&#10;">
+								        <label class="control-label">
+								        	学号
+								        </label>
+								        <div class="controls">
+									        <div class="input-prepend">
+									        	<span class="add-on">
+									        		<i class="fa fa-book"></i>
+									        	</span>
+									            <input name="stuId1" autofocus=""  type="text"  placeholder="学号" value="" style="height: 30px;">
+									        </div>
+									        <p class="text-error"></p>
+								        </div>
+								    </div>
+								    <div class="control-group&#10;" >
+								        <label class="control-label" >
+								        	学院
+								        </label>
+								        <div class="controls">
+									        <div class="input-prepend">
+									        	<span class="add-on">
+									        		<i class="fa fa-home"></i>
+									        	</span>
+									            <select name="college1" style="width: 101.5%;">
+													<option value="信息工程学院">信息工程学院</option>
+													<option value="计算机科学与技术学院">计算机科学与技术学院</option>
+													<option value="国防科技学院">国防科技学院</option>
+													<option value="理学院">理学院</option>
+													<option value="经济管理学院">经济管理学院</option>
+													<option value="制造科学与工程学院">制造科学与工程学院</option>
+													<option value="土木工程与建筑学院">土木工程与建筑学院</option>
+													<option value="环境与资源学院">环境与资源学院</option>
+													<option value="材料科学与工程学院">材料科学与工程学院</option>
+													<option value="生命科学与工程学院">生命科学与工程学院</option>
+													<option value="文学与艺术学院">文学与艺术学院</option>
+													<option value="法学院">法学院</option>
+													<option value="马克思主义学院">马克思主义学院</option>
+													<option value="体育学科部">体育学科部</option>
+													<option value="外国语学院">外国语学院</option>
+													<option value="成人教育学院">成人教育学院</option>
+													<option value="网络教育学院">网络教育学院</option>
+													<option value="应用技术学院">应用技术学院</option>
+													<option value="拉美研究院">拉美研究院</option>
+													<option value="其它学院">其它学院</option>
+													<option value="其它学校">其它学校</option>
+												</select>
+									        </div>
+									        <p class="text-error"></p>
+								        </div>
+								    </div>
+								    <div class="control-group&#10;">
+								        <label class="control-label">
+								        	班级
+								        </label>
+								        <div class="controls">
+									        <div class="input-prepend">
+									        	<span class="add-on">
+									        		<i class="fa fa-users"></i>
+									        	</span>
+									            <input name="class1"  autofocus=""  type="text"  placeholder="班级" value="" style="height: 30px;">
+									        </div>
+									        <p class="text-error"></p>
+								        </div>
+								    </div>
+								    
+								    
+								    
+								    <div class="control-group&#10;">
+								        <label class="control-label">
+								        	性别
+								        </label>
+								        <div class="controls">
+									        <div class="input-prepend">
+												<span class="add-on">
+									        		<i class="fa fa-github-alt"></i>
+									        	</span>
+									        	
+									        	<select name = "gender1" style="width: 270%;">
+									        		<option value="male">男</option>
+													<option value="female">女</option>
+									        	</select>
+									        </div>
+									        <p class="text-error"></p>
+								        </div>
+								    </div>  
+								    
+								    <div class="control-group&#10;">
+								        <label class="control-label">
+								        	联系方式
+								        </label>
+								        <div class="controls">
+									        <div class="input-prepend">
+									        	<span class="add-on">
+									        		<i class="fa fa-phone"></i>
+									        	</span>
+									            <input name="contact1"  autofocus=""  type="text"  placeholder="联系方式" value="" style="height: 30px;">
+									        </div>
+									        <p class="text-error"></p>
+								        </div>
+								    </div>
+								</td>
+								<td>
+									<h2>队员二</h2>
+									<p>
+										姓名：
+										<input  name="name2" type="text"/>
+									</p>
+									<p>
+										学号：
+										<input  name="stuId2" type="text"/>
+									</p>
+									<p>
+										学院：
+										<select name="college2">
+											<option value="信息工程学院">信息工程学院</option>
+											<option value="计算机科学与技术学院">计算机科学与技术学院</option>
+											<option value="国防科技学院">国防科技学院</option>
+											<option value="理学院">理学院</option>
+											<option value="经济管理学院">经济管理学院</option>
+											<option value="制造科学与工程学院">制造科学与工程学院</option>
+											<option value="土木工程与建筑学院">土木工程与建筑学院</option>
+											<option value="环境与资源学院">环境与资源学院</option>
+											<option value="材料科学与工程学院">材料科学与工程学院</option>
+											<option value="生命科学与工程学院">生命科学与工程学院</option>
+											<option value="文学与艺术学院">文学与艺术学院</option>
+											<option value="法学院">法学院</option>
+											<option value="马克思主义学院">马克思主义学院</option>
+											<option value="体育学科部">体育学科部</option>
+											<option value="外国语学院">外国语学院</option>
+											<option value="成人教育学院">成人教育学院</option>
+											<option value="网络教育学院">网络教育学院</option>
+											<option value="应用技术学院">应用技术学院</option>
+											<option value="拉美研究院">拉美研究院</option>
+											<option value="其它学院">其它学院</option>
+											<option value="其它学校">其它学校</option>
+										</select>
+									</p>
+									<p>
+										班级：
+										<input  name="class2" type="text"/>
+									</p>
+									<p>
+										性别：
+										<input type="radio" name="gender2" value="male" checked="checked">男
+										<input type="radio" name="gender2" value="female">女
+									</p>
+									<p>
+										联系方式：
+										<input  name="contact2" type="text"/>
+									</p>
+								</td>
+								<td>
+									<h2>队员三</h2>
+									<p>
+										姓名：
+										<input  name="name3" type="text"/>
+									</p>
+									<p>
+										学号：
+										<input  name="stuId3" type="text"/>
+									</p>
+									<p>
+										学院：
+										<select name="college3">
+											<option value="信息工程学院">信息工程学院</option>
+											<option value="计算机科学与技术学院">计算机科学与技术学院</option>
+											<option value="国防科技学院">国防科技学院</option>
+											<option value="理学院">理学院</option>
+											<option value="经济管理学院">经济管理学院</option>
+											<option value="制造科学与工程学院">制造科学与工程学院</option>
+											<option value="土木工程与建筑学院">土木工程与建筑学院</option>
+											<option value="环境与资源学院">环境与资源学院</option>
+											<option value="材料科学与工程学院">材料科学与工程学院</option>
+											<option value="生命科学与工程学院">生命科学与工程学院</option>
+											<option value="文学与艺术学院">文学与艺术学院</option>
+											<option value="法学院">法学院</option>
+											<option value="马克思主义学院">马克思主义学院</option>
+											<option value="体育学科部">体育学科部</option>
+											<option value="外国语学院">外国语学院</option>
+											<option value="成人教育学院">成人教育学院</option>
+											<option value="网络教育学院">网络教育学院</option>
+											<option value="应用技术学院">应用技术学院</option>
+											<option value="拉美研究院">拉美研究院</option>
+											<option value="其它学院">其它学院</option>
+											<option value="其它学校">其它学校</option>
+										</select>
+									</p>
+									<p>
+										班级：
+										<input  name="class3" type="text"/>
+									</p>
+									<p>
+										性别：
+										<input type="radio" name="gender3" value="male" checked="checked">男
+										<input type="radio" name="gender3" value="female">女
+									</p>
+									<p>
+										联系方式：
+										<input  name="contact3" type="text"/>
+									</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" align="center" style="height: 50px">
+									是否正式参加：
+									<input type="radio" name="isSpecialTeam" value=0 checked="checked">是
+									<input type="radio" name="isSpecialTeam" value=1>否
+									
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3" align="center" style="height: 50px">
+									<input type="submit" value="提交">
+									<button type="button" onclick="clk()"> 返回</button>
+								</td>
+							</tr>
+						</table>
 						
-					</td>
-				</tr>
-				<tr>
-					<td colspan="3" align="center" style="height: 50px">
-						<input type="submit" value="提交">
-						<button type="button" onclick="clk()"> 返回</button>
-					</td>
-				</tr>
-			</table>
-			
-		</form>
+					</form>
+				</div>
+			</div>		
+		</div>
 	</body>
 </html>
