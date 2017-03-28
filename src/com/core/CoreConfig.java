@@ -1,6 +1,6 @@
 package com.core;
 
-import com.admin;
+
 import com.jfinal.config.*;
 import com.jfinal.core.JFinal;
 import com.jfinal.ext.handler.ContextPathHandler;
@@ -10,7 +10,7 @@ import com.main.MainController;
 
 import api.ApiController;
 import contest.ContestController;
-
+import com.main.admin.AdminController;
 
 public class CoreConfig extends JFinalConfig 
 {
@@ -22,7 +22,7 @@ public class CoreConfig extends JFinalConfig
 	{
 		me.add("/", MainController.class);
 		me.add("/contest", ContestController.class);
-		me.add("/admin", admin.class);
+		me.add("/admin", AdminController.class);
 		me.add("/api", ApiController.class);
 	}
 	public void configPlugin(Plugins me)

@@ -122,7 +122,7 @@
          	<col style="width:2.5%"> <!--性别 -->
          	<col style="width:7%"> <!--状态 -->
          	<#if uid != 0 && !reg>
-         		<col style="width:5%"> <!--其他 -->
+         		<col style="width:7%"> <!--其他 -->
          	</#if>
         </colgroup>
     	<thead>
@@ -303,7 +303,7 @@
 		            	<#if !reg>
 		            		<td>
 		            			<#if uid == team.uid>
-		            				<a href="contest/detail/${team.tid}" class="btn btn-warning">修改</a>
+		            				<a href="contest/detail/${team.tid}" class="btn btn-warning">查看详情</a>
 		            			</#if>
 		            		</td>
 		            	</#if>

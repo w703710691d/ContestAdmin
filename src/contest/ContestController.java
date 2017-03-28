@@ -79,13 +79,12 @@ public class ContestController extends Controller
 			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		
-		
 		setAttr("title", contest.getStr("title"));
 		setAttr("username", getSessionAttr("username"));
 		setAttr("cid", cid);
 		setAttr("msg", getSessionAttr("msg"));
-		
+		setAttr("lasturl", getSessionAttr("lasturl"));
+
 		setSessionAttr("lasturl", "/contest/register/" +  getParaToInt(0));
 		setSessionAttr("msg", null);
 		
