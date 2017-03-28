@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ContestAdmin:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="ContestAdmin.war">
+      <element id="artifact" artifact-name="ContestAdmin:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -15,12 +15,7 @@ public class AdminController extends Controller
 	{
 		return getSessionAttr("admin") != null && getSessionAttr("admin").equals(true);
 	}
-	String getstatus(int status)
-	{
-		if(status == 0) return "<font color = \"green\">Pending</font>";
-		else if(status == 1) return "<font color = \"red\">Accepted</font>";
-		else return "<font color = \"black\">Rejected</font>";
-	}
+
 	public void index()
 	{
 		if(getSessionAttr("uid").equals(0))
@@ -31,21 +26,21 @@ public class AdminController extends Controller
 		}
 		if(getSessionAttr("admin").equals(false))
 		{
-			setAttr("msg", "没有权限");
+			setSessionAttr("msg", "没有权限");
 			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
 		Integer tid = getParaToInt(0);
 		if(tid == null)
 		{
-			setAttr("msg", "参数错误");
+			setSessionAttr("msg", "参数错误");
 			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
 		Record team = TeamService.GetTeam(tid);
 		if(team == null)
 		{
-			setAttr("msg", "该队伍不存在");
+			setSessionAttr("msg", "该队伍不存在");
 			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
@@ -54,35 +49,57 @@ public class AdminController extends Controller
 		setAttr("team",team);
 		setAttr("tid", tid);
 		setAttr("username", getSessionAttr("username"));
+		setAttr("lasturl", getSessionAttr("lasturl"));
+		setAttr("admin", getSessionAttr("admin"));
 
 		setSessionAttr("lasturl","/admin/" + tid);
 		setSessionAttr("msg", null);
-		render("/view/admin.html");
+		render("/view/detail.html");
 	}
 	public void update()
 	{
-		setAttr("messege", getSessionAttr("messege"));
-		removeSessionAttr("messege");
-		if(!isadmin())
+		if(getSessionAttr("uid").equals(0))
 		{
-			setSessionAttr("messege","没有权限");
-			redirect("/");
+			setSessionAttr("msg", "请先登陆");
+			redirect("/api/login");
+			return ;
+		}
+		if(getSessionAttr("admin").equals(false))
+		{
+			setSessionAttr("msg", "没有权限");
+			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
 		Integer tid = getParaToInt(0);
-		Record  rd = Db.findFirst("select * from team where tid = ?", tid);
+		if(tid == null)
+		{
+			setSessionAttr("msg", "参数错误");
+			redirect(getSessionAttr("lasturl").toString());
+			return ;
+		}
+		Record team = TeamService.GetTeam(tid);
+		if(team == null)
+		{
+			setSessionAttr("msg", "该队伍不存在");
+			redirect(getSessionAttr("lasturl").toString());
+			return ;
+		}
 		Integer status = getParaToInt("status");
 		String comment = getPara("comment");
-		String username = getSessionAttr("username");
-		Integer cid = rd.getInt("cid");
-		String history = rd.getStr("history");
+		if(status == null) status = 0;
+		if(comment == null) comment = "";
+
+		String history = team.getStr("history");
 		if(history == null) history = "";
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		history += df.format(new Date()) + " " + username + ":" + getstatus(rd.getInt("status")) + "-->" + getstatus(status) + "</br>";
-		int now = (int)(System.currentTimeMillis()/1000);
-		rd.set("mtime", now).set("history", history).set("comment", comment).set("status", status);
-		Db.update("team", "tid", rd);
-		setSessionAttr("messege","修改成功");
+		history = AdminService.BuildHistory(history, getSessionAttr("username").toString(), team.getInt("status"), status);
+
+		int now = (int)(System.currentTimeMillis() / 1000);
+		team.set("mtime", now).set("history", history).set("comment", comment).set("status", status);
+
+		TeamService.UpdateTeam(team);
+		setSessionAttr("msg" ,"修改成功");
+
+		Integer cid = team.getInt("cid");
 		redirect( "/contest/show/" + cid);
 	}
 
@@ -198,7 +215,7 @@ public class AdminController extends Controller
 		String history = rd.getStr("history");
 		if(history == null) history = "";
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
-		history += df.format(new Date()) + " " + getSessionAttr("username") + ":" + getstatus(rd.getInt("status")) + "-->" + getstatus(0) + "</br>";
+		history += "<div>" + df.format(new Date()) + " " + getSessionAttr("username") + ":" + AdminService.getstatus(rd.getInt("status")) + "-->" +AdminService. getstatus(0) + "</div>";
 		int now = (int)(System.currentTimeMillis()/1000);
 		rd.set("uid",uid);
 		rd.set("cid", cid);

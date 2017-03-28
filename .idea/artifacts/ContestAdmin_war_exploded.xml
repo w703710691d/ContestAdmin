@@ -1,0 +1,39 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ContestAdmin:war exploded">
+    <output-path>$PROJECT_DIR$/target/ContestAdmin</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ContestAdmin" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: com.jfinal:jfinal:2.2" />
+          <element id="library" level="project" name="Maven: cglib:cglib-nodep:3.1" />
+          <element id="library" level="project" name="Maven: org.jodd:jodd-core:3.8.1" />
+          <element id="library" level="project" name="Maven: org.jodd:jodd-mail:3.8.1" />
+          <element id="library" level="project" name="Maven: javax.mail:javax.mail-api:1.5.6" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.6" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
+          <element id="library" level="project" name="Maven: c3p0:c3p0:0.9.1.2" />
+          <element id="library" level="project" name="Maven: org.freemarker:freemarker:2.3.25-incubating" />
+          <element id="library" level="project" name="Maven: com.jfinal:jetty-server:8.1.8" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-xml:8.1.8.v20121106" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-util:8.1.8.v20121106" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-servlet:8.1.8.v20121106" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-security:8.1.8.v20121106" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-server:8.1.8.v20121106" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-continuation:8.1.8.v20121106" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-http:8.1.8.v20121106" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-io:8.1.8.v20121106" />
+          <element id="library" level="project" name="Maven: com.mchange:mchange-commons-java:0.2.12" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:6.0.5" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/ContestAdmin/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="ContestAdmin/web/Web" />
+    </root>
+  </artifact>
+</component>

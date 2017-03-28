@@ -92,26 +92,44 @@ public class ContestController extends Controller
 	}
 	public void detail()
 	{
-		setAttr("messege", getSessionAttr("messege"));
-		removeSessionAttr("messege");
 		Integer tid = getParaToInt(0);
 		if(tid == null)
 		{
-			setSessionAttr("messege",  "参数错误");
-			redirect("/");
+			setSessionAttr("msg",  "参数错误");
+			redirect(getSessionAttr("lasturl").toString());
 			return;
 		}
-		Record team = Db.findFirst("select * from team where tid = ?", tid);
+		int uid = getSessionAttr("uid");
+		if(uid == 0)
+		{
+			setSessionAttr("msg", "请先登录");
+			redirect("/api/login");
+			return ;
+		}
+		Record team = TeamService.GetTeam(tid);
 		if(team == null)
 		{
-			setSessionAttr("messege", "参数错误");
-			redirect("/");
+			setSessionAttr("msg", "没有该队伍");
+			redirect(getSessionAttr("lasturl").toString());
 			return;
 		}
-		setAttr("canmodify", isadmin() || (getSessionAttr("uid")!=null && team.getInt("uid").equals(getSessionAttr("uid"))));
+		if(team.getInt("uid") != uid)
+		{
+			setSessionAttr("msg", "没有权限");
+			redirect(getSessionAttr("lasturl").toString());
+			return ;
+		}
+
+		setAttr("msg", getSessionAttr("msg"));
 		setAttr("team",team);
 		setAttr("tid", tid);
+		setAttr("username", getSessionAttr("username"));
+		setAttr("lasturl", getSessionAttr("lasturl"));
+		setAttr("admin", getSessionAttr("admin"));
+
 		setSessionAttr("lasturl","/contest/detail/" + tid);
+		setSessionAttr("msg", null);
+
 		render("/view/detail.html");
 	}
 	public void modify()

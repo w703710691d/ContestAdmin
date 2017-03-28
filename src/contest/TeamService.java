@@ -18,4 +18,8 @@ public class TeamService
 	{
 		Db.save("team", team);
 	}
+	public static  void UpdateTeam(Record team)
+	{
+		Db.update("team", "tid", team);
+	}
 }
