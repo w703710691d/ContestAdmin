@@ -34,7 +34,9 @@
 			.need-mid{
 				margin: 0,auto;
 			}
-
+			.main{
+				margin-bottom: 200px;
+			}
 		</style>
 	</head>
 	<body background="assets/images/background.jpg">
@@ -86,6 +88,9 @@
 					<h1 align="center">
 						${title}</br>
 						注册
+						<#if modify??>
+							信息修改
+						</#if>
 					</h1>
 					<#if msg??>
 				        <div align = "center">
@@ -96,8 +101,12 @@
 								<strong>${msg}</strong>
 							</div>
 						</div>
-				     </#if>
-					<form action="api/register/${cid}" method="post" class="form-horizontal">
+				    </#if>
+				    <#if modify??>
+				    	<form action="api/update/${team.tid}" method="post" class="form-horizontal">
+				    <#else>
+				    	<form action="api/register/${cid}" method="post" class="form-horizontal">
+				    </#if>
 						<table  class="table table-condensed " >
 							<tr>
 								<td>
@@ -111,7 +120,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-user-md"></i>
 									        	</span>
-									            <input name="name1" id="inputAccount" autofocus=""  type="text" required="" placeholder="姓名" value="" style="height: 30px;">
+									            <input name="name1" id="inputAccount" autofocus=""  type="text" required="" placeholder="姓名留空表示没有此队员" value="${team.name1!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -125,7 +134,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-book"></i>
 									        	</span>
-									            <input name="stuId1" autofocus=""  type="text"  placeholder="学号" value="" style="height: 30px;">
+									            <input name="stuId1" autofocus=""  type="text"  placeholder="学号" value="${team.stuId1!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -141,27 +150,27 @@
 									        		<i class="fa fa-home"></i>
 									        	</span>
 									            <select name="college1" style="width: 101.5%;">
-													<option value="信息工程学院">信息工程学院</option>
-													<option value="计算机科学与技术学院">计算机科学与技术学院</option>
-													<option value="国防科技学院">国防科技学院</option>
-													<option value="理学院">理学院</option>
-													<option value="经济管理学院">经济管理学院</option>
-													<option value="制造科学与工程学院">制造科学与工程学院</option>
-													<option value="土木工程与建筑学院">土木工程与建筑学院</option>
-													<option value="环境与资源学院">环境与资源学院</option>
-													<option value="材料科学与工程学院">材料科学与工程学院</option>
-													<option value="生命科学与工程学院">生命科学与工程学院</option>
-													<option value="文学与艺术学院">文学与艺术学院</option>
-													<option value="法学院">法学院</option>
-													<option value="马克思主义学院">马克思主义学院</option>
-													<option value="体育学科部">体育学科部</option>
-													<option value="外国语学院">外国语学院</option>
-													<option value="成人教育学院">成人教育学院</option>
-													<option value="网络教育学院">网络教育学院</option>
-													<option value="应用技术学院">应用技术学院</option>
-													<option value="拉美研究院">拉美研究院</option>
-													<option value="其它学院">其它学院</option>
-													<option value="其它学校">其它学校</option>
+													<option value="信息工程学院" <#if team.college1?? && team.college1 == "信息工程学院"> selected="selected"</#if> >信息工程学院  </option>
+													<option value="计算机科学与技术学院" <#if team.college1?? && team.college1 == "计算机科学与技术学院"> selected="selected"</#if> >计算机科学与技术学院</option>
+													<option value="国防科技学院" <#if team.college1?? && team.college1 == "国防科技学院"> selected="selected"</#if>  >国防科技学院</option>
+													<option value="理学院" <#if team.college1?? && team.college1 == "理学院"> selected="selected"</#if> >理学院</option>
+													<option value="经济管理学院" <#if team.college1?? && team.college1 == "经济管理学院"> selected="selected"</#if> >经济管理学院</option>
+													<option value="制造科学与工程学院" <#if team.college1?? && team.college1 == "制造科学与工程学院"> selected="selected"</#if> >制造科学与工程学院</option>
+													<option value="土木工程与建筑学院" <#if team.college1?? && team.college1 == "土木工程与建筑学院"> selected="selected"</#if> >土木工程与建筑学院</option>
+													<option value="环境与资源学院" <#if team.college1?? && team.college1 == "环境与资源学院"> selected="selected"</#if> >环境与资源学院</option>
+													<option value="材料科学与工程学院" <#if team.college1?? && team.college1 == "材料科学与工程学院"> selected="selected"</#if> >材料科学与工程学院</option>
+													<option value="生命科学与工程学院" <#if team.college1?? && team.college1 == "生命科学与工程学院"> selected="selected"</#if> >生命科学与工程学院</option>
+													<option value="文学与艺术学院" <#if team.college1?? && team.college1 == "文学与艺术学院"> selected="selected"</#if> >文学与艺术学院</option>
+													<option value="法学院" <#if team.college1?? && team.college1 == "法学院"> selected="selected"</#if> >法学院</option>
+													<option value="马克思主义学院" <#if team.college1?? && team.college1 == "马克思主义学院"> selected="selected"</#if> >马克思主义学院</option>
+													<option value="体育学科部" <#if team.college1?? && team.college1 == "体育学科部"> selected="selected"</#if> >体育学科部</option>
+													<option value="外国语学院" <#if team.college1?? && team.college1 == "外国语学院"> selected="selected"</#if> >外国语学院</option>
+													<option value="成人教育学院" <#if team.college1?? && team.college1 == "成人教育学院"> selected="selected"</#if> >成人教育学院</option>
+													<option value="网络教育学院" <#if team.college1?? && team.college1 == "网络教育学院"> selected="selected"</#if> >网络教育学院</option>
+													<option value="应用技术学院" <#if team.college1?? && team.college1 == "应用技术学院"> selected="selected"</#if> >应用技术学院</option>
+													<option value="拉美研究院" <#if team.college1?? && team.college1 == "拉美研究院"> selected="selected"</#if> >拉美研究院</option>
+													<option value="其它学院" <#if team.college1?? && team.college1 == "其它学院"> selected="selected"</#if> >其它学院</option>
+													<option value="其它学校" <#if team.college1?? && team.college1 == "其它学校"> selected="selected"</#if> >其它学校</option>
 												</select>
 									        </div>
 									        <p class="text-error"></p>
@@ -176,7 +185,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-users"></i>
 									        	</span>
-									            <input name="class1"  autofocus=""  type="text"  placeholder="班级" value="" style="height: 30px;">
+									            <input name="class1"  autofocus=""  type="text"  placeholder="班级" value="${team.class1!}"/ style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -193,8 +202,8 @@
 									        	</span>
 									        	
 									        	<select name = "gender1" style="width: 270%;">
-									        		<option value="male">男</option>
-													<option value="female">女</option>
+									        		<option value="male" <#if team.gender1?? && team.gender1 == "male"> selected="selected" </#if> >男</option>
+													<option value="female" <#if team.gender1?? && team.gender1 == "female"> selected="selected" </#if> >女</option>
 									        	</select>
 									        </div>
 									        <p class="text-error"></p>
@@ -210,7 +219,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-phone"></i>
 									        	</span>
-									            <input name="contact1"  autofocus=""  type="text"  placeholder="联系方式" value="" style="height: 30px;">
+									            <input name="contact1"  autofocus=""  type="text"  placeholder="联系方式" value="${team.contact1!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -227,7 +236,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-user-md"></i>
 									        	</span>
-									            <input name="name2" id="inputAccount" autofocus=""  type="text"  placeholder="姓名" value="" style="height: 30px;">
+									            <input name="name2" id="inputAccount" autofocus=""  type="text"  placeholder="姓名留空表示没有此队员" value="${team.name2!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -241,7 +250,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-book"></i>
 									        	</span>
-									            <input name="stuId2" autofocus=""  type="text"  placeholder="学号" value="" style="height: 30px;">
+									            <input name="stuId2" autofocus=""  type="text"  placeholder="学号" value="${team.stuId2!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -257,27 +266,27 @@
 									        		<i class="fa fa-home"></i>
 									        	</span>
 									            <select name="college2" style="width: 101.5%;">
-													<option value="信息工程学院">信息工程学院</option>
-													<option value="计算机科学与技术学院">计算机科学与技术学院</option>
-													<option value="国防科技学院">国防科技学院</option>
-													<option value="理学院">理学院</option>
-													<option value="经济管理学院">经济管理学院</option>
-													<option value="制造科学与工程学院">制造科学与工程学院</option>
-													<option value="土木工程与建筑学院">土木工程与建筑学院</option>
-													<option value="环境与资源学院">环境与资源学院</option>
-													<option value="材料科学与工程学院">材料科学与工程学院</option>
-													<option value="生命科学与工程学院">生命科学与工程学院</option>
-													<option value="文学与艺术学院">文学与艺术学院</option>
-													<option value="法学院">法学院</option>
-													<option value="马克思主义学院">马克思主义学院</option>
-													<option value="体育学科部">体育学科部</option>
-													<option value="外国语学院">外国语学院</option>
-													<option value="成人教育学院">成人教育学院</option>
-													<option value="网络教育学院">网络教育学院</option>
-													<option value="应用技术学院">应用技术学院</option>
-													<option value="拉美研究院">拉美研究院</option>
-													<option value="其它学院">其它学院</option>
-													<option value="其它学校">其它学校</option>
+													<option value="信息工程学院" <#if team.college2?? && team.college2 == "信息工程学院"> selected="selected"</#if> >信息工程学院  </option>
+													<option value="计算机科学与技术学院" <#if team.college2?? && team.college2 == "计算机科学与技术学院"> selected="selected"</#if> >计算机科学与技术学院</option>
+													<option value="国防科技学院" <#if team.college2?? && team.college2 == "国防科技学院"> selected="selected"</#if>  >国防科技学院</option>
+													<option value="理学院" <#if team.college2?? && team.college2 == "理学院"> selected="selected"</#if> >理学院</option>
+													<option value="经济管理学院" <#if team.college2?? && team.college2 == "经济管理学院"> selected="selected"</#if> >经济管理学院</option>
+													<option value="制造科学与工程学院" <#if team.college2?? && team.college2 == "制造科学与工程学院"> selected="selected"</#if> >制造科学与工程学院</option>
+													<option value="土木工程与建筑学院" <#if team.college2?? && team.college2 == "土木工程与建筑学院"> selected="selected"</#if> >土木工程与建筑学院</option>
+													<option value="环境与资源学院" <#if team.college2?? && team.college2 == "环境与资源学院"> selected="selected"</#if> >环境与资源学院</option>
+													<option value="材料科学与工程学院" <#if team.college2?? && team.college2 == "材料科学与工程学院"> selected="selected"</#if> >材料科学与工程学院</option>
+													<option value="生命科学与工程学院" <#if team.college2?? && team.college2 == "生命科学与工程学院"> selected="selected"</#if> >生命科学与工程学院</option>
+													<option value="文学与艺术学院" <#if team.college2?? && team.college2 == "文学与艺术学院"> selected="selected"</#if> >文学与艺术学院</option>
+													<option value="法学院" <#if team.college2?? && team.college2 == "法学院"> selected="selected"</#if> >法学院</option>
+													<option value="马克思主义学院" <#if team.college2?? && team.college2 == "马克思主义学院"> selected="selected"</#if> >马克思主义学院</option>
+													<option value="体育学科部" <#if team.college2?? && team.college2 == "体育学科部"> selected="selected"</#if> >体育学科部</option>
+													<option value="外国语学院" <#if team.college2?? && team.college2 == "外国语学院"> selected="selected"</#if> >外国语学院</option>
+													<option value="成人教育学院" <#if team.college2?? && team.college2 == "成人教育学院"> selected="selected"</#if> >成人教育学院</option>
+													<option value="网络教育学院" <#if team.college2?? && team.college2 == "网络教育学院"> selected="selected"</#if> >网络教育学院</option>
+													<option value="应用技术学院" <#if team.college2?? && team.college2 == "应用技术学院"> selected="selected"</#if> >应用技术学院</option>
+													<option value="拉美研究院" <#if team.college2?? && team.college2 == "拉美研究院"> selected="selected"</#if> >拉美研究院</option>
+													<option value="其它学院" <#if team.college2?? && team.college2 == "其它学院"> selected="selected"</#if> >其它学院</option>
+													<option value="其它学校" <#if team.college2?? && team.college2 == "其它学校"> selected="selected"</#if> >其它学校</option>
 												</select>
 									        </div>
 									        <p class="text-error"></p>
@@ -292,7 +301,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-users"></i>
 									        	</span>
-									            <input name="class1"  autofocus=""  type="text"  placeholder="班级" value="" style="height: 30px;">
+									            <input name="class2"  autofocus=""  type="text"  placeholder="班级" value="${team.class2!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -309,8 +318,8 @@
 									        	</span>
 									        	
 									        	<select name = "gender2" style="width: 270%;">
-									        		<option value="male">男</option>
-													<option value="female">女</option>
+									        		<option value="male" <#if team.gender2?? && team.gender2 == "male"> selected="selected" </#if> >男</option>
+													<option value="female" <#if team.gender2?? && team.gender2 == "female"> selected="selected" </#if> >女</option>
 									        	</select>
 									        </div>
 									        <p class="text-error"></p>
@@ -326,7 +335,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-phone"></i>
 									        	</span>
-									            <input name="contact2"  autofocus=""  type="text"  placeholder="联系方式" value="" style="height: 30px;">
+									            <input name="contact2"  autofocus=""  type="text"  placeholder="联系方式" value="${team.contact2!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -344,7 +353,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-user-md"></i>
 									        	</span>
-									            <input name="name3" id="inputAccount" autofocus=""  type="text"  placeholder="姓名" value="" style="height: 30px;">
+									            <input name="name3" id="inputAccount" autofocus=""  type="text"  placeholder="姓名留空表示没有此队员" value="${team.name3!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -358,7 +367,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-book"></i>
 									        	</span>
-									            <input name="stuId3" autofocus=""  type="text"  placeholder="学号" value="" style="height: 30px;">
+									            <input name="stuId3" autofocus=""  type="text"  placeholder="学号" value="${team.stuId3!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -373,28 +382,28 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-home"></i>
 									        	</span>
-									            <select name="college3" style="width: 101.5%;">
-													<option value="信息工程学院">信息工程学院</option>
-													<option value="计算机科学与技术学院">计算机科学与技术学院</option>
-													<option value="国防科技学院">国防科技学院</option>
-													<option value="理学院">理学院</option>
-													<option value="经济管理学院">经济管理学院</option>
-													<option value="制造科学与工程学院">制造科学与工程学院</option>
-													<option value="土木工程与建筑学院">土木工程与建筑学院</option>
-													<option value="环境与资源学院">环境与资源学院</option>
-													<option value="材料科学与工程学院">材料科学与工程学院</option>
-													<option value="生命科学与工程学院">生命科学与工程学院</option>
-													<option value="文学与艺术学院">文学与艺术学院</option>
-													<option value="法学院">法学院</option>
-													<option value="马克思主义学院">马克思主义学院</option>
-													<option value="体育学科部">体育学科部</option>
-													<option value="外国语学院">外国语学院</option>
-													<option value="成人教育学院">成人教育学院</option>
-													<option value="网络教育学院">网络教育学院</option>
-													<option value="应用技术学院">应用技术学院</option>
-													<option value="拉美研究院">拉美研究院</option>
-													<option value="其它学院">其它学院</option>
-													<option value="其它学校">其它学校</option>
+									            <select name="college3" style="width: 101.5%;"> 
+													<option value="信息工程学院" <#if team.college3?? && team.college3 == "信息工程学院"> selected="selected"</#if> >信息工程学院  </option>
+													<option value="计算机科学与技术学院" <#if team.college3?? && team.college3 == "计算机科学与技术学院"> selected="selected"</#if> >计算机科学与技术学院</option>
+													<option value="国防科技学院" <#if team.college3?? && team.college3 == "国防科技学院"> selected="selected"</#if>  >国防科技学院</option>
+													<option value="理学院" <#if team.college3?? && team.college3 == "理学院"> selected="selected"</#if> >理学院</option>
+													<option value="经济管理学院" <#if team.college3?? && team.college3 == "经济管理学院"> selected="selected"</#if> >经济管理学院</option>
+													<option value="制造科学与工程学院" <#if team.college3?? && team.college3 == "制造科学与工程学院"> selected="selected"</#if> >制造科学与工程学院</option>
+													<option value="土木工程与建筑学院" <#if team.college3?? && team.college3 == "土木工程与建筑学院"> selected="selected"</#if> >土木工程与建筑学院</option>
+													<option value="环境与资源学院" <#if team.college3?? && team.college3 == "环境与资源学院"> selected="selected"</#if> >环境与资源学院</option>
+													<option value="材料科学与工程学院" <#if team.college3?? && team.college3 == "材料科学与工程学院"> selected="selected"</#if> >材料科学与工程学院</option>
+													<option value="生命科学与工程学院" <#if team.college3?? && team.college3 == "生命科学与工程学院"> selected="selected"</#if> >生命科学与工程学院</option>
+													<option value="文学与艺术学院" <#if team.college3?? && team.college3 == "文学与艺术学院"> selected="selected"</#if> >文学与艺术学院</option>
+													<option value="法学院" <#if team.college3?? && team.college3 == "法学院"> selected="selected"</#if> >法学院</option> 
+													<option value="马克思主义学院" <#if team.college3?? && team.college3 == "马克思主义学院"> selected="selected"</#if> >马克思主义学院</option>
+													<option value="体育学科部" <#if team.college3?? && team.college3 == "体育学科部"> selected="selected"</#if> >体育学科部</option>
+													<option value="外国语学院" <#if team.college3?? && team.college3 == "外国语学院"> selected="selected"</#if> >外国语学院</option>
+													<option value="成人教育学院" <#if team.college3?? && team.college3 == "成人教育学院"> selected="selected"</#if> >成人教育学院</option>
+													<option value="网络教育学院" <#if team.college3?? && team.college3 == "网络教育学院"> selected="selected"</#if> >网络教育学院</option>
+													<option value="应用技术学院" <#if team.college3?? && team.college3 == "应用技术学院"> selected="selected"</#if> >应用技术学院</option> 
+													<option value="拉美研究院" <#if team.college3?? && team.college3 == "拉美研究院"> selected="selected"</#if> >拉美研究院</option>
+													<option value="其它学院" <#if team.college3?? && team.college3 == "其它学院"> selected="selected"</#if> >其它学院</option> 
+													<option value="其它学校" <#if team.college3?? && team.college3 == "其它学校"> selected="selected"</#if> >其它学校</option>
 												</select>
 									        </div>
 									        <p class="text-error"></p>
@@ -409,7 +418,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-users"></i>
 									        	</span>
-									            <input name="class3"  autofocus=""  type="text"  placeholder="班级" value="" style="height: 30px;">
+									            <input name="class3"  autofocus=""  type="text"  placeholder="班级" value="${team.class3!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -425,8 +434,8 @@
 									        		<i class="fa fa-github-alt"></i>
 									        	</span>
 									       		<select name = "gender3" style="width: 270%;">
-									        		<option value="male">男</option>
-													<option value="female">女</option>
+									       			<option value="male" <#if team.gender3?? && team.gender3 == "male" > selected="selected" </#if> >男</option>
+									       			<option value="female" <#if team.gender3?? && team.gender3 == "female"> selected="selected" </#if> >女</option>
 									        	</select>
 									        </div>
 									        <p class="text-error"></p>
@@ -442,7 +451,7 @@
 									        	<span class="add-on">
 									        		<i class="fa fa-phone"></i>
 									        	</span>
-									            <input name="contact3"  autofocus=""  type="text"  placeholder="联系方式" value="" style="height: 30px;">
+									            <input name="contact3"  autofocus=""  type="text"  placeholder="联系方式" value="${team.contact3!}" style="height: 30px;">
 									        </div>
 									        <p class="text-error"></p>
 								        </div>
@@ -467,8 +476,8 @@
 									        		<i class="fa fa-star"></i>
 									        	</span>
 									       		<select name = "isSpecialTeam" style="width: 270%;">
-									        		<option value="0">否</option>
-													<option value="1">是</option>
+									        		<option value="0" <#if team.isSpecialTeam?? && team.isSpecialTeam == false> selected="selected"</#if> >否</option>
+													<option value="1" <#if team.isSpecialTeam?? && team.isSpecialTeam == true> selected="selected" </#if> >是</option>
 									        	</select>
 									        </div>
 									        <p class="text-error"></p>

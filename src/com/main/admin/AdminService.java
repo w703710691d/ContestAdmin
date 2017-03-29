@@ -3,9 +3,6 @@ package com.main.admin;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by w7037 on 2017/3/28.
- */
 public class AdminService
 {
     public static String getstatus(int status)
