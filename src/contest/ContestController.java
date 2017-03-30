@@ -170,7 +170,7 @@ public class ContestController extends Controller
 		setAttr("title", contest.getStr("title"));
 		setAttr("lasturl", getSessionAttr("lasturl"));
 		setSessionAttr("msg", null);
-		setSessionAttr("lasturl", "/admin/modify/"+ tid);
+		setSessionAttr("lasturl", "/contest/modify/"+ tid);
 		render("/view/register.html");
 	}
 }

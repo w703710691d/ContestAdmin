@@ -3,14 +3,10 @@ package api;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Record;
 import com.main.admin.AdminService;
-import com.sun.prism.impl.Disposer;
 import contest.ContestService;
 import contest.TeamService;
 import user.UserService;
 
-import javax.mail.search.RecipientStringTerm;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class ApiController extends Controller
 {
@@ -108,83 +104,29 @@ public class ApiController extends Controller
 			return ;
 		}
 		Record rd = new Record();
-		rd.set("ctime", (int)(System.currentTimeMillis() / 1000));
-		rd.set("mtime", (int)(System.currentTimeMillis() / 1000));
-		rd.set("name1", getPara("name1"));
-		rd.set("stuId1", getPara("stuId1"));
-		rd.set("college1", getPara("college1"));
-		rd.set("class1", getPara("class1"));
-		rd.set("contact1", getPara("contact1"));
-		rd.set("gender1", getPara("gender1"));
-		rd.set("name2", getPara("name2"));
-		rd.set("stuId2", getPara("stuId2"));
-		rd.set("college2", getPara("college2"));
-		rd.set("class2", getPara("class2"));
-		rd.set("contact2", getPara("contact2"));
-		rd.set("gender2", getPara("gender2"));
-		rd.set("name3", getPara("name3"));
-		rd.set("stuId3", getPara("stuId3"));
-		rd.set("college3", getPara("college3"));
-		rd.set("class3", getPara("class3"));
-		rd.set("contact3", getPara("contact3"));
-		rd.set("gender3", getPara("gender3"));
-		rd.set("isSpecialTeam", getPara("isSpecialTeam"));
-		boolean isgirl = true, isrookie = true;
-		if(rd.getStr("name1").replaceAll(" ","").isEmpty() || rd.getStr("stuId1").replaceAll(" ","").isEmpty() || rd.getStr("college1").replaceAll(" ","").isEmpty()
-				||rd.getStr("class1").replaceAll(" ","").isEmpty() || rd.getStr("contact1").replaceAll(" ","").isEmpty())
+		for(int i = 1; i <= 3; i++)
 		{
-			setSessionAttr("msg", "队员一信息必须完整");
+			rd.set("name" + i, getPara("name" + i));
+			rd.set("stuId" + i, getPara("stuId" + i));
+			rd.set("college" + i, getPara("college" + i));
+			rd.set("class" + i, getPara("class" + i));
+			rd.set("gender" + i, getPara("gender" + i));
+			rd.set("contact" + i, getPara("contact" + i));
+		}
+		rd.set("isSpecialTeam", getPara("isSpecialTeam"));
+		rd = TeamService.FormatTeam(rd);
+		if(rd == null)
+		{
+			setSessionAttr("msg", "队员信息不完整");
 			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		else
-		{
-			if(!ApiService.isrookie(rd.getStr("stuId1")))
-			{
-				isrookie = false;
-			}
-			if(rd.getStr("gender1").equals("male"))
-			{
-				isgirl = false;
-			}
-		}
-		if(rd.getStr("name2").replaceAll(" ","").isEmpty())
-		{
-			rd.set("name2", null).set("stuId2", null).set("college2", null).set("class2", null).set("gender2", null).set("contact2", null);
-			rd.set("name3", null).set("stuId3", null).set("college3", null).set("class3", null).set("gender3", null).set("contact3", null);
-		}
-		else
-		{
-			if(!ApiService.isrookie(rd.getStr("stuId2")))
-			{
-				isrookie = false;
-			}
-			if(rd.getStr("gender2").equals("male"))
-			{
-				isgirl = false;
-			}
-		}
-		if(rd.getStr("name3") == null || rd.getStr("name3").replaceAll(" ","").isEmpty())
-		{
-			rd.set("name3", null).set("stuId3", null).set("college3", null).set("class3", null).set("gender3", null).set("contact3", null);
-		}
-		else
-		{
-			if(!ApiService.isrookie(rd.getStr("stuId3")))
-			{
-				isrookie = false;
-			}
-			if(rd.getStr("gender3").equals("male"))
-			{
-				isgirl = false;
-			}
-		}
+		rd.set("ctime", (int)(System.currentTimeMillis() / 1000));
+		rd.set("mtime", (int)(System.currentTimeMillis() / 1000));
 		rd.set("uid",uid);
 		rd.set("cid", cid);
 		rd.set("status", 0);
 		rd.set("notice", 0);
-		rd.set("isRookieTeam", isrookie);
-		rd.set("isGirlTeam", isgirl);
 		TeamService.SaveTeam(rd);
 		setSessionAttr("msg", "注册成功");
 		redirect("/contest/show/" + cid);
@@ -219,78 +161,23 @@ public class ApiController extends Controller
 			redirect(getSessionAttr("lasturl").toString());
 			return;
 		}
-		rd.set("name1", getPara("name1"));
-		rd.set("stuId1", getPara("stuId1"));
-		rd.set("college1", getPara("college1"));
-		rd.set("class1", getPara("class1"));
-		rd.set("contact1", getPara("contact1"));
-		rd.set("gender1", getPara("gender1"));
-		rd.set("name2", getPara("name2"));
-		rd.set("stuId2", getPara("stuId2"));
-		rd.set("college2", getPara("college2"));
-		rd.set("class2", getPara("class2"));
-		rd.set("contact2", getPara("contact2"));
-		rd.set("gender2", getPara("gender2"));
-		rd.set("name3", getPara("name3"));
-		rd.set("stuId3", getPara("stuId3"));
-		rd.set("college3", getPara("college3"));
-		rd.set("class3", getPara("class3"));
-		rd.set("contact3", getPara("contact3"));
-		rd.set("gender3", getPara("gender3"));
-		rd.set("isSpecialTeam", getPara("isSpecialTeam"));
-		boolean isgirl = true, isrookie = true;
-		if(rd.getStr("name1").replaceAll(" ","").isEmpty() || rd.getStr("stuId1").replaceAll(" ","").isEmpty() || rd.getStr("college1").replaceAll(" ","").isEmpty()
-				||rd.getStr("class1").replaceAll(" ","").isEmpty() || rd.getStr("contact1").replaceAll(" ","").isEmpty())
+		for(int i = 1; i <= 3; i++)
 		{
-			setSessionAttr("msg", "队员一信息必须完整");
+			rd.set("name" + i, getPara("name" + i));
+			rd.set("stuId" + i, getPara("stuId" + i));
+			rd.set("college" + i, getPara("college" + i));
+			rd.set("class" + i, getPara("class" + i));
+			rd.set("gender" + i, getPara("gender" + i));
+			rd.set("contact" + i, getPara("contact" + i));
+		}
+		rd.set("isSpecialTeam", getPara("isSpecialTeam"));
+		rd = TeamService.FormatTeam(rd);
+		if(rd == null)
+		{
+			setSessionAttr("msg", "队员信息不完整");
 			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
-		else
-		{
-			if(!ApiService.isrookie(rd.getStr("stuId1")))
-			{
-				isrookie = false;
-			}
-			if(rd.getStr("gender1").equals("male"))
-			{
-				isgirl = false;
-			}
-		}
-		if(rd.getStr("name2").replaceAll(" ","").isEmpty())
-		{
-			rd.set("name2", null).set("stuId2", null).set("college2", null).set("class2", null).set("gender2", null).set("contact2", null);
-			rd.set("name3", null).set("stuId3", null).set("college3", null).set("class3", null).set("gender3", null).set("contact3", null);
-		}
-		else
-		{
-			if(!ApiService.isrookie(rd.getStr("stuId2")))
-			{
-				isrookie = false;
-			}
-			if(rd.getStr("gender2").equals("male"))
-			{
-				isgirl = false;
-			}
-		}
-		if(rd.getStr("name3") == null || rd.getStr("name3").replaceAll(" ","").isEmpty())
-		{
-			rd.set("name3", null).set("stuId3", null).set("college3", null).set("class3", null).set("gender3", null).set("contact3", null);
-		}
-		else
-		{
-			if(!ApiService.isrookie(rd.getStr("stuId3")))
-			{
-				isrookie = false;
-			}
-			if(rd.getStr("gender3").equals("male"))
-			{
-				isgirl = false;
-			}
-		}
-		rd.set("notice", 0);
-		rd.set("isRookieTeam", isrookie);
-		rd.set("isGirlTeam", isgirl);
 		String history = rd.getStr("history");
 		if(history == null) history = "";
 		history = AdminService.BuildHistory(history, getSessionAttr("username").toString(), rd.getInt("status"), 0);

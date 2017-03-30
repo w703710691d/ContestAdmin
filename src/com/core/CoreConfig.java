@@ -27,7 +27,7 @@ public class CoreConfig extends JFinalConfig
 	}
 	public void configPlugin(Plugins me)
 	{
-		loadPropertyFile("db_config.txt"); 
+		loadPropertyFile( "db_config.txt");
     	C3p0Plugin  cp  =  new  C3p0Plugin(getProperty("url"), getProperty("user"), getProperty("password"));
     	me.add(cp);
     	ActiveRecordPlugin arp = new ActiveRecordPlugin(cp);
