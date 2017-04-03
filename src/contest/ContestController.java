@@ -1,6 +1,5 @@
 package contest;
 
-import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 
 
@@ -8,10 +7,6 @@ import com.jfinal.core.Controller;
 
 public class ContestController extends Controller
 {
-	boolean isadmin()
-	{
-		return getSessionAttr("admin") != null && getSessionAttr("admin").equals(true);
-	}
 	public void show()
 	{
 		Integer cid = getParaToInt(0);
@@ -84,10 +79,11 @@ public class ContestController extends Controller
 		setAttr("cid", cid);
 		setAttr("msg", getSessionAttr("msg"));
 		setAttr("lasturl", getSessionAttr("lasturl"));
+		setAttr("team",new Record());
 
 		setSessionAttr("lasturl", "/contest/register/" +  getParaToInt(0));
 		setSessionAttr("msg", null);
-		
+
 		render("/view/register.html");
 	}
 	public void detail()
