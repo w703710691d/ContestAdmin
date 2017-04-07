@@ -63,6 +63,8 @@ public class TeamService
 		if(team.get("history") != null) rd.set("history", team.get("history"));
 		if(team.get("cid") != null) rd.set("cid", team.get("cid"));
 		if(team.get("isSpecialTeam") != null) rd.set("isSpecialTeam", team.get("isSpecialTeam"));
+		if(team.get("teamNameChinese") != null) rd.set("teamNameChinese", team.get("teamNameChinese"));
+		if(team.get("teamNameEnglish") != null) rd.set("teamNameEnglish", team.get("teamNameEnglish"));
 		return rd;
 	}
 	public static boolean IsGirlTeam(Record team)

@@ -1,7 +1,9 @@
 package com.main.admin;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import api.ApiService;
 import com.jfinal.core.Controller;
@@ -12,10 +14,6 @@ import contest.TeamService;
 
 public class AdminController extends Controller
 {
-	boolean isadmin()
-	{
-		return getSessionAttr("admin") != null && getSessionAttr("admin").equals(true);
-	}
 
 	public void index()
 	{
@@ -142,5 +140,46 @@ public class AdminController extends Controller
 		setSessionAttr("msg", null);
 		setSessionAttr("lasturl", "/admin/modify/"+ tid);
 		render("/view/register.html");
+	}
+	public void generate()
+	{
+		if(getSessionAttr("uid").equals(0))
+		{
+			setSessionAttr("msg", "请先登陆");
+			redirect("/api/login");
+			return ;
+		}
+		if(getSessionAttr("admin").equals(false))
+		{
+			setSessionAttr("msg", "没有权限");
+			redirect(getSessionAttr("lasturl").toString());
+			return ;
+		}
+		Integer cid = getParaToInt(0);
+		if(cid == null)
+		{
+			setSessionAttr("msg", "参数错误");
+			redirect(getSessionAttr("lasturl").toString());
+			return ;
+		}
+		Record  contest = ContestService.GetContest(cid);
+		if(contest == null)
+		{
+			setSessionAttr("msg", "该比赛不存在");
+			redirect(getSessionAttr("lasturl").toString());
+			return ;
+		}
+		if (contest.getInt("atime") != null)
+		{
+			setSessionAttr("msg", "该比赛账号已经生产");
+			redirect(getSessionAttr("lasturl").toString());
+			return ;
+		}
+		contest.set("atime", (int)(System.currentTimeMillis() / 1000));
+		Db.update("contest","cid",contest);
+
+		File file = AdminService.getAccountFile(cid);
+		renderFile(file);
+
 	}
 }

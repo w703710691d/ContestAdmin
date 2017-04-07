@@ -210,6 +210,22 @@
 									${team.contact3!}
 								</td>
 							</tr>
+								<tr>
+									<td>
+										中文队名
+									</td>
+									<td colspan="3">
+										${team.teamNameChinese!}
+									</td>
+								</tr>
+								<tr>
+									<td>
+										英文队名
+									</td>
+									<td colspan="3">
+										${team.teamNameEnglish!}
+									</td>
+								</tr>
 							<tr>
 								<td>
 									UID
@@ -298,7 +314,9 @@
 								</div>
 							</div>
 							<div>
-								<a href = "contest/modify/${team.tid}" class = "btn btn-warning">修改报名信息</a>
+								<#if .now?long < (contest.startTime - 24*60*60) *1000  >
+									<a href = "contest/modify/${team.tid}" class = "btn btn-warning">修改报名信息</a>
+								</#if>
 								<a href = "contest/show/${team.cid}" class = "btn btn-danger">返回</a>
 							</div>
 						</#if>

@@ -35,11 +35,9 @@ public class ContestController extends Controller
 		setAttr("admin", getSessionAttr("admin"));
 		setAttr("msg", getSessionAttr("msg"));
 		setAttr("uid", uid);
-		setAttr("title", contest.getStr("title"));
-		setAttr("cid", contest.getInt("cid"));
 		setAttr("TeamList", ContestService.GetTeam(cid));
 		setAttr("reg", ContestService.CanReg(uid, cid));
-		
+		setAttr("contest", contest);
 		setSessionAttr("msg", null);
 		setSessionAttr("lasturl", "/contest/show/" + cid);
 		
@@ -70,7 +68,7 @@ public class ContestController extends Controller
 		}
 		if(!ContestService.CanReg(uid, cid))
 		{
-			setSessionAttr("msg", "已经注册该比赛");
+			setSessionAttr("msg", "已经注册该比赛或现在不能注册该比赛");
 			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
@@ -115,7 +113,9 @@ public class ContestController extends Controller
 			redirect(getSessionAttr("lasturl").toString());
 			return ;
 		}
+		Record contest = ContestService.GetContest(team.getInt("cid"));
 
+		setAttr("contest",contest);
 		setAttr("msg", getSessionAttr("msg"));
 		setAttr("team",team);
 		setAttr("tid", tid);
@@ -159,6 +159,14 @@ public class ContestController extends Controller
 			return ;
 		}
 		Record contest = ContestService.GetContest(team.getInt("cid"));
+		long now = System.currentTimeMillis();
+		if(now  >= (contest.getInt("startTime") - 24*60*60) * 1000L)
+		{
+			setSessionAttr("msg", "现在无法修改报名信息");
+			redirect(getSessionAttr("lasturl").toString());
+			return ;
+		}
+
 		setAttr("username",getSessionAttr("username"));
 		setAttr("team",team);
 		setAttr("modify",true);

@@ -125,15 +125,22 @@
 	                            ${(contestlist.startTime*1000)?number_to_datetime}
 	                        </td>
 	                        <td>
-	                            ${(contestlist.startTime*1000)?number_to_datetime}
+	                            ${(contestlist.endTime*1000)?number_to_datetime}
 	                        </td>
-	                        <#if .now?long < contestlist.startTime*1000 >
+	                        <#if .now?long < (contestlist.startTime - 24*60*60) *1000  >
 	                        	<td>
 	                        		<font color="green">等待</font>
 	                        	</td>
 	                        	<td>
 	                            	<a class = 'btn btn-info' href = "contest/show/${contestlist.cid}">进入报名列表</a>
 	                           	</td>
+							<#elseif .now?long < contestlist.startTime*1000>
+								<td>
+									<font color="blue">报名结束</font>
+								</td>
+								<td>
+									<a class = 'btn btn-info' href = "contest/show/${contestlist.cid}">查看报名列表</a>
+								</td>
 	                        <#elseif .now?long < contestlist.endTime*1000>
 	                        	<td>
 	                        		<font color="red">正在进行</font>

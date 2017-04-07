@@ -107,7 +107,52 @@
 				    <#else>
 				    	<form action="api/register/${cid}" method="post" class="form-horizontal">
 				    </#if>
+
+
+
 						<table  class="table table-condensed " >
+							<tr>
+								<td colspan="3" height="20px"></td>
+							</tr>
+							<tr>
+								<td>
+
+								</td>
+								<td>
+										<div class="control-group">
+											<label class="control-label" for="inputAccount">
+												中文队名
+											</label>
+											<div class="controls">
+												<div class="input-prepend">
+													<span class="add-on">
+														<i class="icon-music"></i>
+													</span>
+													<input name="teamNameChinese" id="inputAccount" autofocus=""  type="text"  placeholder="中文对名" value="${team.teamNameChinese!}" style="height: 30px;">
+												</div>
+												<p class="text-error"></p>
+											</div>
+										</div>
+									<div class="control-group">
+										<label class="control-label" for="inputAccount">
+											英文队名
+										</label>
+										<div class="controls">
+											<div class="input-prepend">
+														<span class="add-on">
+															<i class="icon-heart"></i>
+														</span>
+												<input name="teamNameEnglish" id="inputAccount" autofocus=""  type="text" required="" placeholder="英文队名" value="${team.teamNameEnglish!}" style="height: 30px;">
+											</div>
+											<p class="text-error"></p>
+										</div>
+									</div>
+
+								</td>
+								<td>
+
+								</td>
+							</tr>
 							<tr>
 								<td>
 									<h2 align="center">队员一</h2>

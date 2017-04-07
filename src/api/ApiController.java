@@ -104,6 +104,28 @@ public class ApiController extends Controller
 			return ;
 		}
 		Record rd = new Record();
+		String teamNameChinese = getPara("teamNameChinese");
+		if(teamNameChinese.length() > 20)
+		{
+			setSessionAttr("msg", "中文名太长，大于了20字节");
+			redirect(getSessionAttr("lasturl").toString());
+			return;
+		}
+		String teamNameEnglish = getPara("teamNameEnglish");
+		if(teamNameEnglish.length() > 20)
+		{
+			setSessionAttr("msg", "英文名太长，大于了20字节");
+			redirect(getSessionAttr("lasturl").toString());
+			return;
+		}
+		if(!ApiService.CheckAscii(teamNameEnglish))
+		{
+			setSessionAttr("msg", "英文名包含非英文字符");
+			redirect(getSessionAttr("lasturl").toString());
+			return;
+		}
+		rd.set("teamNameChinese", teamNameChinese);
+		rd.set("teamNameEnglish", teamNameEnglish);
 		for(int i = 1; i <= 3; i++)
 		{
 			rd.set("name" + i, getPara("name" + i));
@@ -161,6 +183,28 @@ public class ApiController extends Controller
 			redirect(getSessionAttr("lasturl").toString());
 			return;
 		}
+		String teamNameChinese = getPara("teamNameChinese");
+		if(teamNameChinese.length() > 20)
+		{
+			setSessionAttr("msg", "中文名太长，大于了20字节");
+			redirect(getSessionAttr("lasturl").toString());
+			return;
+		}
+		String teamNameEnglish = getPara("teamNameEnglish");
+		if(teamNameEnglish.length() > 20)
+		{
+			setSessionAttr("msg", "英文名太长，大于了20字节");
+			redirect(getSessionAttr("lasturl").toString());
+			return;
+		}
+		if(!ApiService.CheckAscii(teamNameEnglish))
+		{
+			setSessionAttr("msg", "英文名包含非英文字符");
+			redirect(getSessionAttr("lasturl").toString());
+			return;
+		}
+		rd.set("teamNameChinese", teamNameChinese);
+		rd.set("teamNameEnglish", teamNameEnglish);
 		for(int i = 1; i <= 3; i++)
 		{
 			rd.set("name" + i, getPara("name" + i));

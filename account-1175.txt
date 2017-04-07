@@ -1,0 +1,35 @@
+1	华哥2 pangzi	华哥 淼姐 小苹果	team1175001	05vnwrzk
+2		王猛旗 黄妙 李陈	team1175002	h73gn551
+3		曹令 高良浩 成启林	team1175003	oicispy2
+4		李勇 万明坤 屈昕	team1175004	th7sqqmk
+5		梁晨 黄思寒 王丹荔	team1175005	hka6jyz8
+6		方畋钦 张晓雨 丁涛	team1175006	5fe30hmg
+7		卢文静 徐文华 邓诗艺	team1175007	blowlk2m
+8		镇高红 王婷 李欣	team1175008	n8az709f
+9		刘清华 伍俊吉 晏贺智	team1175009	g8l20ryf
+10		杜威铭 饶志双 张宏宇	team1175010	2zjhbl30
+11		秦亮 刘谨搏 帅鹏举	team1175011	gh7zlja8
+12		黄雪菊 吴涛	team1175012	0po6zylv
+13		陈际舟 伍荣俊男 吴昊谦	team1175013	44cfrolo
+14		汤泽川 唐雪辉 李廷	team1175014	57gesngy
+15		周文迪 纪育青 赵柳权	team1175015	tw3r4s6j
+16		王文文 邱晓玲 周敏	team1175016	esocoygw
+17		张乐 钦盼琛 李俊	team1175017	u2rt3rt7
+18		胡宇 王武柔 贺健洋	team1175018	wrn0a0xd
+19		王育军 翁富鑫 滕明波	team1175019	zt0a37ec
+20		余明珠 刘浪 苟亚明	team1175020	6wwzqlyc
+21		申剑涛 何波 唐齐鸿	team1175021	k2c2peip
+22		俞晶翔 张波 舒宇	team1175022	1mqgwg4m
+23		黄谍 谢睿婕 王雪雯	team1175023	41oup6sm
+24		蒋朝辉 梁晓剑 朱克宇	team1175024	g7wobvs6
+25		喻永生 高远 郭海富	team1175025	v6frnc1a
+26		王琨予 黄乙轩 李浩然	team1175026	fi7rtwbt
+27		任柏谦 曾越峰	team1175027	u1mdjvpp
+28		曾家敏 邓鑫	team1175028	vz52a0if
+29		胡钰 李玲茜 凌敏	team1175029	sddl8wir
+30		巴洪刚 郑羽丰 弓源	team1175030	67irl52s
+31		龙家琳 罗宇淳	team1175031	j5f0nfpl
+32		吴仕超 李乐 雷德成	team1175032	3d30iccz
+33		伏朝奇 冯年	team1175033	cwg4njma
+34		邓燕 陈颖聪 彭渊	team1175034	2m8gkwy5
+35		梁安 瞿梦成	team1175035	pvw13qgr

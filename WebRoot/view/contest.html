@@ -46,7 +46,7 @@
 			}
 			.main {
 				width: 80%;
-				min-width: 1024px;
+				min-width: 1280px;
 				margin-bottom: 200px;
 			}
       	</style>
@@ -100,7 +100,7 @@
     <div class = "row-fluid">
     <div class="span12">
     <h1 style="text-align: center;">
-        ${title}
+        ${contest.title}
     </h1>
     <#if msg??>
         <div align = "center">
@@ -112,17 +112,24 @@
 			</div>
 		</div>
      </#if>
-    <#if reg>
+    <#if reg && .now?long < (contest.startTime - 24*60*60) *1000 >
     	<div align="center">
-    		<a href="contest/register/${cid}" style="text-align: center;" class = "btn btn-info">
+    		<a href="contest/register/${contest.cid}" style="text-align: center;" class = "btn btn-info">
     			<h3>比赛注册入口</h3>
     		</a>
     	</div>
-    	
     </#if>
+	<#if  admin && !(contest.atime??) && (contest.startTime - 24*60*60) *1000 <= .now?long && .now?long <= contest.startTime*1000 >
+		<div align="center">
+			<a href="admin/generate/${contest.cid}" style="text-align: center;" class = "btn btn-info">
+				<h3>生产比赛账号</h3>
+			</a>
+		</div>
+	</#if>
     <table class = "table table-stats table-responsive table-hover table-striped">
     	 <colgroup>
          	<col style="width:2.5%"> <!--序号 -->
+			<col style= "width: 10%"> <!--队伍名-->
          	<col style="width:5%"> <!--姓名 -->
          	<col style="width:7%"> <!--学院 -->
          	<col style="width:6%"> <!--班级 -->
@@ -144,6 +151,8 @@
         	<tr> 
 	            <th>
 	            </th>
+				<th>
+				</th>
 	            <th colspan = "4">
 	 				队员一
 	            </th>
@@ -164,6 +173,9 @@
 	            <th>
 	            	序号
 	            </th>
+				<th>
+					队名
+				</th>
 	            <th>
 	           		姓名
 	            </th>
@@ -242,6 +254,11 @@
 	                	${id}
 	             	</#if>
 	            </td>
+				<td>
+					${team.teamNameChinese!}
+					<#if team.teamNameChinese??><br></#if>
+					${team.teamNameEnglish!}
+				</td>
 	            <td>
 	                ${team.name1!}
 	            </td>

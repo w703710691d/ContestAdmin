@@ -19,9 +19,15 @@ public class ContestService
 	{
 		return Db.find("Select * from team where cid = ?", cid);
 	}
-	
+	static public List<Record> GetAcTeam(Integer cid)
+	{
+		return Db.find("Select * from team where cid = ? and status = 1", cid);
+	}
 	static public Boolean CanReg(Integer uid, Integer cid)
 	{
+		Record contest = GetContest(cid);
+		long now = System.currentTimeMillis();
+		if(now  >= (contest.getInt("startTime") - 24*60*60) * 1000L) return false;
 		Record team = TeamService.GetTeam(uid, cid);
 		if(team == null) return true;
 		return false;
