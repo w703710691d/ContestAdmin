@@ -143,7 +143,7 @@
          	<col style="width:6%"> <!--班级 -->
          	<col style="width:2.5%"> <!--性别 -->
          	<col style="width:4%"> <!--状态 -->
-         	<#if uid != 0 && !reg>
+         	<#if admin || (uid != 0 && !reg)>
          		<col style="width:4%"> <!--其他 -->
          	</#if>
         </colgroup>
@@ -329,7 +329,7 @@
 	            <#if uid != 0>
 		            <#if admin?? && admin>
 		            	<td>
-		            		<a href="admin/${team.tid}" class="btn btn-info">管理</a>
+		            		<a href="admin/${team.tid}" class="btn btn-info" style="width:60px">管理</a>
 		            	</td>
 		            <#else>
 		            	<#if !reg>
