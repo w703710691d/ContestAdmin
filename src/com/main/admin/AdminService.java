@@ -42,7 +42,7 @@ public class AdminService
     }
     public static File getAccountFile(int cid)
     {
-        File file = new File("account-" + cid + ".txt");
+        File file = new File("/var/www/download/account-" + cid + ".txt");
         try
         {
             PrintWriter writer = new PrintWriter(new BufferedOutputStream(new FileOutputStream(file)));
