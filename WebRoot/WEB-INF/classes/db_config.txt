@@ -1,4 +1,4 @@
-url=jdbc\:mysql\://swustacm.cn/oj?characterEncoding\=UTF-8&zeroDateTimeBehavior\=convertToNull&useSSL=true
+url=jdbc\:mysql\://127.0.0.1/oj?characterEncoding\=UTF-8&zeroDateTimeBehavior\=convertToNull&useSSL=true
   		  
 user=w703710691d
 password=15286739
