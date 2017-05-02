@@ -85,7 +85,7 @@ public class TeamService
 	public static boolean IsRookieTeam(Record team)
 	{
 		boolean isRookieTeam = true;
-		for(int i = 1; i <=3 ; i++)
+		for(int i = 1; i <= 3 ; i++)
 		{
 			String stuId = team.getStr("stuId" + i);
 			if(stuId == null) continue;

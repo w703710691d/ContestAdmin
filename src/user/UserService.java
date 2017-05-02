@@ -7,19 +7,13 @@ import jodd.util.BCrypt;
 
 public class UserService
 {
-	public static Record user = null;
-	public static Integer GetUid()
-	{
-		if(user == null) return 0;
-		return user.getInt("uid");
-	}
 	public static String GetUserName(int uid)
 	{
 		return Db.queryStr("select name from user where uid = ?", uid);
 	}
 	public static Integer login(String username, String password) 
 	{
-		user = Db.findFirst("select * from user where name = ?", username);
+		Record user = Db.findFirst("select * from user where name = ?", username);
 		if(user == null)
 		{
 			return 0;
