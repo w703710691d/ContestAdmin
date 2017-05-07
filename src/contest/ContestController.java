@@ -30,16 +30,29 @@ public class ContestController extends Controller
 			return ;
 		}
 		int uid = getSessionAttr("uid");
-		
+
+		Integer currentPage = getParaToInt(1);
+
+		if(currentPage == null) currentPage = 1;
+		int totalPage = (ContestService.GetTeamNum(cid) + 19) / 20;
+
+		setAttr("cid", cid);
+		setAttr("currentPage", currentPage);
+		setAttr("totalPage", totalPage);
 		setAttr("username", getSessionAttr("username"));
 		setAttr("admin", getSessionAttr("admin"));
 		setAttr("msg", getSessionAttr("msg"));
 		setAttr("uid", uid);
-		setAttr("TeamList", ContestService.GetTeam(cid));
+		setAttr("TeamList", ContestService.GetTeam(cid, currentPage));
 		setAttr("reg", ContestService.CanReg(uid, cid));
 		setAttr("contest", contest);
+		setAttr("accepted", ContestService.GetAccptedTeamNum(cid));
+		setAttr("rookie", ContestService.GetRookieTeamNum(cid));
+		setAttr("girl", ContestService.GetGirlTeamNum(cid));
+		setAttr("id",(currentPage - 1) * 20);
+
 		setSessionAttr("msg", null);
-		setSessionAttr("lasturl", "/contest/show/" + cid);
+		setSessionAttr("lasturl", "/contest/show/" + cid + "-" + currentPage);
 		
 		render("/view/contest.html");
 	}

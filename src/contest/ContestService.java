@@ -15,9 +15,9 @@ public class ContestService
 	{
 		return Db.findFirst("select * from contest where cid = ? and type = 2", cid);
 	}
-	static public List<Record> GetTeam(Integer cid) 
+	static public List<Record> GetTeam(Integer cid, int idx)
 	{
-		return Db.find("Select * from team where cid = ?", cid);
+		return Db.find("Select * from team where cid = ? LIMIT ?, 20", cid, (idx - 1) * 20);
 	}
 	static public List<Record> GetAcTeam(Integer cid)
 	{
@@ -32,5 +32,29 @@ public class ContestService
 		if(team == null) return true;
 		return false;
 	}
-	
+
+	static public Integer GetTeamNum(Integer cid)
+	{
+		String s = Db.query("select count(*) from team where cid = ?", cid).toString();
+		s = s.substring(1,s.length() - 1);
+		return Integer.parseInt(s);
+	}
+	static public Integer GetAccptedTeamNum(Integer cid)
+	{
+		String s = Db.query("select count(*) from team where cid = ? and status = 1 and isSpecialTeam = 0", cid).toString();
+		s = s.substring(1,s.length() - 1);
+		return Integer.parseInt(s);
+	}
+	static public Integer GetRookieTeamNum(Integer cid)
+	{
+		String s = Db.query("select count(*) from team where cid = ? and status = 1 and isRookieTeam", cid).toString();
+		s = s.substring(1,s.length() - 1);
+		return Integer.parseInt(s);
+	}
+	static public Integer GetGirlTeamNum(Integer cid)
+	{
+		String s = Db.query("select count(*) from team where cid = ? and status = 1 and isGirlTeam", cid).toString();
+		s = s.substring(1,s.length() - 1);
+		return Integer.parseInt(s);
+	}
 }

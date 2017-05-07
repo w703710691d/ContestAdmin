@@ -96,6 +96,11 @@
 						</div>
 					</div>
                	</#if>
+				<div class=" pagination pagination-centered">
+					<#include "_paginate.html" />
+					<@paginate currentPage = currentPage totalPage = totalPage actionUrl="" urlParas="${query!}"/>
+				</div>
+
                 <table class="table table-stats table-responsive table-hover table-striped">
                 	<thead class="">
 	                    <tr>

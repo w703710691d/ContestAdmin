@@ -123,10 +123,14 @@
 	<#if  admin && !(contest.atime??) && (contest.startTime - 24*60*60) *1000 <= .now?long && .now?long <= contest.startTime*1000 >
 		<div align="center">
 			<a href="admin/generate/${contest.cid}" style="text-align: center;" class = "btn btn-info">
-				<h3>生产比赛账号</h3>
+				<h3>生成比赛账号</h3>
 			</a>
 		</div>
 	</#if>
+		<div class=" pagination pagination-centered">
+			<#include "_paginate2.html" />
+			<@paginate currentPage = currentPage totalPage = totalPage actionUrl="contest/show/" + cid urlParas="${query!}"/>
+		</div>
     <table class = "table table-stats table-responsive table-hover table-striped">
     	 <colgroup>
          	<col style="width:2.5%"> <!--序号 -->
@@ -231,7 +235,6 @@
 		        </#if>
         	</tr>
         </thead>
-       	<#assign id = 0 girl = 0, rookie = 0, accepted = 0/>
        	<tbody>
 	        <#list TeamList as team>
 	        <#if team.isGirlTeam>
@@ -241,17 +244,12 @@
 			<#else>
 				<tr>
 			</#if>
-	        <#if team.isGirlTeam && team.status == 1> 
-				<#assign girl = girl + 1/>
-			</#if>
-			<#if team.isRookieTeam && team.status == 1> 
-				<#assign rookie = rookie + 1/>
-			</#if>
 	            <td>
+					<#assign id = id + 1 />
 	             	<#if team.isSpecialTeam>
-	             		*
+	             		*${id}
 	             	<#else>
-	                	<#assign id = id + 1 />
+
 	                	${id}
 	             	</#if>
 	            </td>
@@ -322,7 +320,6 @@
 	            		<p class="btn btn-info">Pending</p>
 	            	<#elseif team.status == 1>
 	            		<p class="btn btn-success" >Accepted</p>
-	            		<#assign accepted = accepted + 1/>
 	            	<#else>
 	            		<p class="btn btn-danger" >Rejected</p>
 	            	</#if>

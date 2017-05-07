@@ -7,7 +7,14 @@ public class MainController extends Controller
 {
 	public void index() 
 	{
-		List<Record> list = MainService.GetMainList();
+		Integer currentPage = getParaToInt(0);
+		if(currentPage == null) currentPage = 1;
+		int totalPage = (MainService.GetContestNum() + 19) / 20;
+
+		setAttr("currentPage", currentPage);
+		setAttr("totalPage", totalPage);
+
+		List<Record> list = MainService.GetMainList(currentPage);
 		setAttr("NodeList", list);
 		setAttr("username", getSessionAttr("username"));
 		setAttr("msg", getSessionAttr("msg"));	
