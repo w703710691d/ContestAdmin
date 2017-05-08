@@ -34,28 +34,67 @@ public class ApiController extends Controller
 				if(username.replace(" ", "").equals("") || password.replace(" ", "").equals(""))
 				{
 					setSessionAttr("msg", "账号密码不能为空");
-					redirect("/api/login");
+					render("/view/login.html");
 					return;
 				}
 				Integer uid = UserService.login(username, password);
 				if(uid == 0)
 				{
 					setSessionAttr("msg", "该用户不存在");
-					redirect("/api/login");
+					render("/view/login.html");
 					return;
 				}
 				if(uid == -1)
 				{
 					setSessionAttr("msg", "密码错误");
-					redirect("/api/login");
+					render("/view/login.html");
 					return;
 				}
+
 				setSessionAttr("msg", "登录成功");
 				setSessionAttr("admin", UserService.isadmin(uid));
 				setSessionAttr("uid", uid);
 				setSessionAttr("username", UserService.GetUserName(uid));
 				redirect(getSessionAttr("lasturl").toString());
+
 			}
+		}
+	}
+	public void signin()
+	{
+		if(!getSessionAttr("uid").equals(0))
+		{
+			renderJson("{\"success\":false, \"result\":\"已经登陆\"}");
+			return;
+		}
+		else
+		{
+			String username = getPara("username");
+			String password = getPara("password");
+
+			if(username == null || username.replace(" ", "").equals("") ||
+					password == null || password.replace(" ", "").equals(""))
+			{
+				renderJson("{\"success\":false, \"result\":\"账号密码不能为空\"}");
+				return;
+			}
+
+			Integer uid = UserService.login(username, password);
+			if(uid == 0)
+			{
+				renderJson("{\"success\":false, \"result\":\"该用户不存在\"}");
+				return;
+			}
+			if(uid == -1)
+			{
+				renderJson("{\"success\":false, \"result\":\"密码错误\"}");
+				return;
+			}
+
+			setSessionAttr("admin", UserService.isadmin(uid));
+			setSessionAttr("uid", uid);
+			setSessionAttr("username", UserService.GetUserName(uid));
+			renderJson("{\"success\":true}");
 		}
 	}
 	public void logout()

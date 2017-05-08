@@ -1,21 +1,7 @@
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
-        <meta name="renderer" content="webkit">
-        <base href="${ctx_path}/"/>
-        
-        <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link href="assets/font-awesome-4.6.3/css/font-awesome.min.css" type="text/css" rel="stylesheet">
-		<!--[if lt IE 8]>
-		<link href="assets/font-awesome-4.6.3/css/font-awesome-ie7.min.css" type="text/css" rel="stylesheet">
-		<![endif]-->
-		<link href="assets/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link href="assets/css/oj.css" type="text/css" rel="stylesheet">
-		<link href="assets/css/oj-icons.css" type="text/css" rel="stylesheet">
-		<link href="assets/tablecloth/css/tablecloth.css" rel="stylesheet" type="text/css">
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-		<script>$(".alert").alert()</script>
+
+		<#include "_head.html"/>
         
         <style>
         	.table {
@@ -53,303 +39,264 @@
       	</style>
     </head>
     <body background="assets/images/background.jpg">
-        	<div class="navbar navbar-fixed-top" id="oj-navbar">
-			  <div class="navbar-inner">
-			    <div class="container">
-			      <button class="btn btn-navbar" type="button" data-target=".nav-collapse" data-toggle="collapse">
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			      </button>
-			      <a class="brand" href="https://www.oj.swust.edu.cn">PowerOJ</a>
-			      <div class="nav-collapse collapse">
-			        <ul class="nav">
-			          <li>
-			            <a href=""><i class="icon-list"></i>比赛列表</a>
-			          </li>
-			        </ul>
-			        <ul class="nav pull-right">
-			        	
-			        	<#if username??>
-			        		<li>
-					            <a><i class="oj-icon oj-icon-user-suit"></i>${username}</a>
-					        </li>
-					        <li>
-					            <a href="api/logout"><i class="icon-off"></i>注销</a>
-					        </li>
-			            <#else>
-			            	<li>
-					            <a href="api/login"><i class="icon-user"></i>登陆</a>
-					        </li>
-					        <li>
-					            <a href="https://www.oj.swust.edu.cn/signup"><i class="icon-star"></i>注册</a>
-					        </li>
-			        	</#if>
-			        	
-			          
-			        </ul>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			<div class="marquee">
-			  <marquee class="hidden-phone" style="margin-top: 46px;" direction="left" behavior="scroll" scrollamount="2">
-			  <ul class="marquee"></ul>
-			  </marquee>
-			</div>
-	<div class = "main container">
-    <div class = "row-fluid">
-    <div class="span12">
-    <h1 style="text-align: center;">
-        ${contest.title}
-    </h1>
-    <#if msg??>
-        <div align = "center">
-	        <div class="alert alert-warning" align="center" style="width: 20%;">
-				<a href="#" class="close" data-dismiss="alert">
-					&times;
-				</a>
-				<strong>${msg}</strong>
-			</div>
-		</div>
-     </#if>
-    <#if reg && .now?long < (contest.startTime - 24*60*60) *1000 >
-    	<div align="center">
-    		<a href="contest/register/${contest.cid}" style="text-align: center;" class = "btn btn-info">
-    			<h3>比赛注册入口</h3>
-    		</a>
-    	</div>
-    </#if>
-	<#if  admin && !(contest.atime??) && (contest.startTime - 24*60*60) *1000 <= .now?long && .now?long <= contest.startTime*1000 >
-		<div align="center">
-			<a href="admin/generate/${contest.cid}" style="text-align: center;" class = "btn btn-info">
-				<h3>生成比赛账号</h3>
-			</a>
-		</div>
-	</#if>
-		<div class=" pagination pagination-centered">
-			<#include "_paginate2.html" />
-			<@paginate currentPage = currentPage totalPage = totalPage actionUrl="contest/show/" + cid urlParas="${query!}"/>
-		</div>
-    <table class = "table table-stats table-responsive table-hover table-striped">
-    	 <colgroup>
-         	<col style="width:2.5%"> <!--序号 -->
-			<col style= "width: 10%"> <!--队伍名-->
-         	<col style="width:5%"> <!--姓名 -->
-         	<col style="width:7%"> <!--学院 -->
-         	<col style="width:6%"> <!--班级 -->
-         	<col style="width:2.5%"> <!--性别 -->
-         	<col style="width:5%"> <!--姓名 -->
-         	<col style="width:7%"> <!--学院 -->
-         	<col style="width:6%"> <!--班级 -->
-         	<col style="width:2.5%"> <!--性别 -->
-         	<col style="width:5%"> <!--姓名 -->
-         	<col style="width:7%"> <!--学院 -->
-         	<col style="width:6%"> <!--班级 -->
-         	<col style="width:2.5%"> <!--性别 -->
-         	<col style="width:4%"> <!--状态 -->
-         	<#if admin || (uid != 0 && !reg)>
-         		<col style="width:4%"> <!--其他 -->
-         	</#if>
-        </colgroup>
-    	<thead>
-        	<tr> 
-	            <th>
-	            </th>
-				<th>
-				</th>
-	            <th colspan = "4">
-	 				队员一
-	            </th>
-	            <th colspan = "4">
-	           		队员二
-	            </th>
-	            <th colspan = "4">
-	           		队员三
-	            </th>
-	            <th colspan="1">
-	            </th>
-	            <#if (uid != 0 && !reg) || admin>
-	            	<th colspan="1">
-	           	 	</th>
-	           	</#if>
-        	</tr>
-        	<tr>
-	            <th>
-	            	序号
-	            </th>
-				<th>
-					队名
-				</th>
-	            <th>
-	           		姓名
-	            </th>
-	            <th>
-	          		学院
-	            </th>
-	            <th>
-	           		班级
-	            </th>
-	            <th>
-	          		性别
-	            </th>
-	             <th>
-	            	姓名
-	            </th>
-	            <th>
-	           		学院
-	            </th>
-	            <th>
-	          		班级
-	            </th>
-	            <th>
-					性别
-	            </th>
-	            <th>
-					姓名
-	            </th>
-	            <th>
-					学院
-	            </th>
-	            <th>
-					班级
-	            </th>
-	            <th>
-					性别
-	            </th>
-	             <th>
-					状态
-	            </th>
-	            <#if uid != 0>
-		            <#if admin?? && admin>
-		            	<th>
-		            		管理
-		            	</th>
-		            <#else>
-		            	<#if !reg >
-		            		<th>
-		            			操作
-		            		</th>
-		            	</#if>
-		            </#if>
-		        </#if>
-        	</tr>
-        </thead>
-       	<tbody>
-	        <#list TeamList as team>
-	        <#if team.isGirlTeam>
-				<tr class = "girl">
-			<#elseif team.isRookieTeam>
-				<tr class = "rookie">
-			<#else>
-				<tr>
-			</#if>
-	            <td>
-					<#assign id = id + 1 />
-	             	<#if team.isSpecialTeam>
-	             		*${id}
-	             	<#else>
 
-	                	${id}
-	             	</#if>
-	            </td>
-				<td>
-					${team.teamNameChinese!}
-					<#if team.teamNameChinese??><br></#if>
-					${team.teamNameEnglish!}
-				</td>
-	            <td>
-	                ${team.name1!}
-	            </td>
-	            <td>
-	                ${team.college1!}
-	            </td>
-	            <td>
-	                ${team.class1!}
-	            </td>
-	            <td>
-	            	<#if team.gender1??>
-	            		<#if team.gender1 == "male">
-	            			男
-	            		<#else>
-	            			女
-	            		</#if>
-	            	<#else>	
-	            	</#if>
-	            </td>
-	            <td>
-	                ${team.name2!}
-	            </td>
-	            <td>
-	                ${team.college2!}
-	            </td>
-	            <td>
-	                ${team.class2!}
-	            </td>
-	            <td>
-	                <#if team.gender2??>
-	            		<#if team.gender2 == "male">
-	            			男
-	            		<#else>
-	            			女
-	            		</#if>
-	            	<#else>
-	            	</#if>
-	            </td>
-	            <td>
-	                 ${team.name3!}
-	            </td>
-	            <td>
-	                ${team.college3!}
-	            </td>
-	            <td>
-	                ${team.class3!}
-	            </td>
-	            <td>
-	                <#if team.gender3??>
-	            		<#if team.gender3 == "male">
-	            			男
-	            		<#else>
-	            			女
-	            		</#if>
-	            	<#else>
-	            	</#if>
-	            </td>
-	            <td>
-	            	<#if team.status == 0>
-	            		<p class="btn btn-info">Pending</p>
-	            	<#elseif team.status == 1>
-	            		<p class="btn btn-success" >Accepted</p>
-	            	<#else>
-	            		<p class="btn btn-danger" >Rejected</p>
-	            	</#if>
-	            </td>
-	            <#if uid != 0>
-		            <#if admin?? && admin>
-		            	<td>
-		            		<a href="admin/${team.tid}" class="btn btn-info" style="width:60px">管理</a>
-		            	</td>
-		            <#else>
-		            	<#if !reg>
-		            		<td>
-		            			<#if uid == team.uid>
-		            				<a href="contest/detail/${team.tid}" class="btn btn-warning" style="width:60px">查看详情</a>
-		            			</#if>
-		            		</td>
-		            	</#if>
-		            	
-		            </#if>
-		         </#if>
-	        </tr>
-	        </#list>
-        </tbody>
-        <p style="font-weight: 900" align="center"> 
-    		总计：${accepted}支正式队</br>
-    		<font color="red" >女生队：${girl}</font></br>
-    		<font color="green">新人队：${rookie}</font>
-    	</p>
-    </table>
-    </div>
-    </div>
-    </div>
+		<#include "_mask.html" />
+
+		<div class = "main container">
+		<div class = "row-fluid">
+		<div class="span12">
+		<h1 style="text-align: center;">
+			${contest.title}
+		</h1>
+		<#if msg??>
+			<div align = "center">
+				<div class="alert alert-warning" align="center" style="width: 20%;">
+					<a href="#" class="close" data-dismiss="alert">
+						&times;
+					</a>
+					<strong>${msg}</strong>
+				</div>
+			</div>
+		 </#if>
+		<#if reg && .now?long < (contest.startTime - 24*60*60) *1000 >
+			<div align="center">
+				<a href="contest/register/${contest.cid}" style="text-align: center;" class = "btn btn-info">
+					<h3>比赛注册入口</h3>
+				</a>
+			</div>
+		</#if>
+		<#if  admin && !(contest.atime??) && (contest.startTime - 24*60*60) *1000 <= .now?long && .now?long <= contest.startTime*1000 >
+			<div align="center">
+				<a href="admin/generate/${contest.cid}" style="text-align: center;" class = "btn btn-info">
+					<h3>生成比赛账号</h3>
+				</a>
+			</div>
+		</#if>
+			<div class=" pagination pagination-centered">
+				<#include "_paginate2.html" />
+				<@paginate currentPage = currentPage totalPage = totalPage actionUrl="contest/show/" + cid urlParas="${query!}"/>
+			</div>
+		<table class = "table table-stats table-responsive table-hover table-striped">
+			 <colgroup>
+				<col style="width:2.5%"> <!--序号 -->
+				<col style= "width: 10%"> <!--队伍名-->
+				<col style="width:5%"> <!--姓名 -->
+				<col style="width:7%"> <!--学院 -->
+				<col style="width:6%"> <!--班级 -->
+				<col style="width:2.5%"> <!--性别 -->
+				<col style="width:5%"> <!--姓名 -->
+				<col style="width:7%"> <!--学院 -->
+				<col style="width:6%"> <!--班级 -->
+				<col style="width:2.5%"> <!--性别 -->
+				<col style="width:5%"> <!--姓名 -->
+				<col style="width:7%"> <!--学院 -->
+				<col style="width:6%"> <!--班级 -->
+				<col style="width:2.5%"> <!--性别 -->
+				<col style="width:4%"> <!--状态 -->
+				<#if admin || (uid != 0 && !reg)>
+					<col style="width:4%"> <!--其他 -->
+				</#if>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>
+					</th>
+					<th>
+					</th>
+					<th colspan = "4">
+						队员一
+					</th>
+					<th colspan = "4">
+						队员二
+					</th>
+					<th colspan = "4">
+						队员三
+					</th>
+					<th colspan="1">
+					</th>
+					<#if (uid != 0 && !reg) || admin>
+						<th colspan="1">
+						</th>
+					</#if>
+				</tr>
+				<tr>
+					<th>
+						序号
+					</th>
+					<th>
+						队名
+					</th>
+					<th>
+						姓名
+					</th>
+					<th>
+						学院
+					</th>
+					<th>
+						班级
+					</th>
+					<th>
+						性别
+					</th>
+					 <th>
+						姓名
+					</th>
+					<th>
+						学院
+					</th>
+					<th>
+						班级
+					</th>
+					<th>
+						性别
+					</th>
+					<th>
+						姓名
+					</th>
+					<th>
+						学院
+					</th>
+					<th>
+						班级
+					</th>
+					<th>
+						性别
+					</th>
+					 <th>
+						状态
+					</th>
+					<#if uid != 0>
+						<#if admin?? && admin>
+							<th>
+								管理
+							</th>
+						<#else>
+							<#if !reg >
+								<th>
+									操作
+								</th>
+							</#if>
+						</#if>
+					</#if>
+				</tr>
+			</thead>
+			<tbody>
+				<#list TeamList as team>
+				<#if team.isGirlTeam>
+					<tr class = "girl">
+				<#elseif team.isRookieTeam>
+					<tr class = "rookie">
+				<#else>
+					<tr>
+				</#if>
+					<td>
+						<#assign id = id + 1 />
+						<#if team.isSpecialTeam>
+							*${id}*
+						<#else>
+
+							${id}
+						</#if>
+					</td>
+					<td>
+						${team.teamNameChinese!}
+						<#if team.teamNameChinese??><br></#if>
+						${team.teamNameEnglish!}
+					</td>
+					<td>
+						${team.name1!}
+					</td>
+					<td>
+						${team.college1!}
+					</td>
+					<td>
+						${team.class1!}
+					</td>
+					<td>
+						<#if team.gender1??>
+							<#if team.gender1 == "male">
+								男
+							<#else>
+								女
+							</#if>
+						<#else>
+						</#if>
+					</td>
+					<td>
+						${team.name2!}
+					</td>
+					<td>
+						${team.college2!}
+					</td>
+					<td>
+						${team.class2!}
+					</td>
+					<td>
+						<#if team.gender2??>
+							<#if team.gender2 == "male">
+								男
+							<#else>
+								女
+							</#if>
+						<#else>
+						</#if>
+					</td>
+					<td>
+						 ${team.name3!}
+					</td>
+					<td>
+						${team.college3!}
+					</td>
+					<td>
+						${team.class3!}
+					</td>
+					<td>
+						<#if team.gender3??>
+							<#if team.gender3 == "male">
+								男
+							<#else>
+								女
+							</#if>
+						<#else>
+						</#if>
+					</td>
+					<td>
+						<#if team.status == 0>
+							<p class="btn btn-info">Pending</p>
+						<#elseif team.status == 1>
+							<p class="btn btn-success" >Accepted</p>
+						<#else>
+							<p class="btn btn-danger" >Rejected</p>
+						</#if>
+					</td>
+					<#if uid != 0>
+						<#if admin?? && admin>
+							<td>
+								<a href="admin/${team.tid}" class="btn btn-info" style="width:60px">管理</a>
+							</td>
+						<#else>
+							<#if !reg>
+								<td>
+									<#if uid == team.uid>
+										<a href="contest/detail/${team.tid}" class="btn btn-warning" style="width:60px">查看详情</a>
+									</#if>
+								</td>
+							</#if>
+
+						</#if>
+					 </#if>
+				</tr>
+				</#list>
+			</tbody>
+			<p style="font-weight: 900" align="center">
+				总计：${accepted}支正式队</br>
+				<font color="red" >女生队：${girl}</font></br>
+				<font color="green">新人队：${rookie}</font>
+			</p>
+		</table>
+		</div>
+		</div>
+		</div>
+		<#include "_modal.html"/>
+	</body>
 </html>
