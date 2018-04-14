@@ -20,7 +20,7 @@ public class MainService
 				+ "from contest"
 				+ " where type = 2 "
 				+ "order by startTime DESC "
-				+ "LIMIT ?, 15", (currentPage - 1)*20);
+				+ "LIMIT ?, 20", (currentPage - 1)*20);
 		return list;
 	}
 }

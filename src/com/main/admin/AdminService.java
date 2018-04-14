@@ -31,7 +31,7 @@ public class AdminService
     }
     public static String getPassowrd()
     {
-        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        String base = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         StringBuffer sb = new StringBuffer();
         for(int i = 0; i < 8; i++)
         {
